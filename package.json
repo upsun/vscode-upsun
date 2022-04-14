@@ -1,0 +1,101 @@
+{
+  "name": "psh-cli",
+  "displayName": "Psh CLI",
+  "description": "Front end to platform.sh CLI on Visual Studio Code ",
+  "version": "0.1.0",
+  "author": {
+    "name": "Mickael GAILLARD",
+    "url": "https://platform.sh"
+  },
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:psh-cli.test",
+    "onCommand:psh-cli.console.open",
+    "onCommand:psh-cli.environment:url",
+    "onCommand:psh-cli.environment:ssh"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "psh-cli.test",
+        "title": "Hello World",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.console.open",
+        "title": "Open console",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:url",
+        "title": "Open web browser of the public URLs of an environment",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:ssh",
+        "title": "Open SSH to the current environment",
+        "category": "Platform.sh"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Platform.sh CLI",
+        "properties": {
+          "psh-cli.binaryPath": {
+            "title": "Platform.sh CLI binary path",
+            "type": "string",
+            "default": "~/.platformsh/bin/platform",
+            "description": "Location of platform binary",
+            "scope": "resource"
+          },
+          "psh-cli.token": {
+            "title": "Platform API Token",
+            "type": "string",
+            "default": "",
+            "description": "API token for platform.sh",
+            "scope": "resource"
+          }
+        }
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "psh-cli.test",
+          "when": "workbenchState != empty"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/js-yaml": "^4.0.5",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.66.0",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.11.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.2.2",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -1,0 +1,47 @@
+'use strict';
+
+// Base on https://github.com/microsoft/vscode-python/blob/main/src/client/common/utils/platform.ts
+
+export enum Architecture {
+    Unknown = 1,
+    x86 = 2,
+    x64 = 3,
+}
+export enum OSType {
+    Unknown = 'Unknown',
+    Windows = 'Windows',
+    OSX = 'OSX',
+    Linux = 'Linux',
+}
+
+// Return the OS type for the given platform string.
+export function getOSType(platform: string = process.platform): OSType {
+    if (/^win/.test(platform)) {
+        return OSType.Windows;
+    } else if (/^darwin/.test(platform)) {
+        return OSType.OSX;
+    } else if (/^linux/.test(platform)) {
+        return OSType.Linux;
+    } else {
+        return OSType.Unknown;
+    }
+}
+
+const architectures: Record<string, Architecture> = {
+    x86: Architecture.x86, // 32-bit
+    x64: Architecture.x64, // 64-bit
+    '': Architecture.Unknown,
+};
+
+/**
+ * Identify the host's native architecture/bitness.
+ */
+export function getArchitecture(): Architecture {
+    const fromProc = architectures[process.arch];
+    if (fromProc !== undefined) {
+        return fromProc;
+    }
+
+    const arch = require('arch');
+    return architectures[arch()] || Architecture.Unknown;
+}

@@ -1,0 +1,27 @@
+'use strict';
+
+import * as path from 'path';
+import * as fs  from 'fs';
+import { load } from "js-yaml";
+
+const PSH_FOLDER = '.platform';
+const PSH_LOCAL = 'local/project.yaml';
+const PSH_ROUTES = 'routes.yaml';
+const PSH_SERVICES = 'services.yaml';
+
+export class PshConfig {
+    pshFolder: string;
+    pshProjectId: string;
+    pshHost: string;
+    pshRoutes: any;
+    pshServices: any;
+
+    constructor(root: string) {
+        this.pshFolder = path.join(root, PSH_FOLDER);
+        this.pshRoutes = load(fs.readFileSync(path.join(this.pshFolder, PSH_ROUTES), "utf8"));
+        this.pshServices = load(fs.readFileSync(path.join(this.pshFolder, PSH_SERVICES), "utf8"));
+        const pshLocal = load(fs.readFileSync(path.join(this.pshFolder, PSH_LOCAL), "utf8"));
+        this.pshProjectId = (pshLocal as any).id;
+        this.pshHost = (pshLocal as any).host;
+    }
+}
