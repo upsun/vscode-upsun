@@ -1,4 +1,3 @@
 
 sqldb:
-    # (https://docs.platform.sh/configuration/services/mysql.html#supported-versions)
     type: mysql:10.5
