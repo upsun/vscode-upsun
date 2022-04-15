@@ -1,21 +1,21 @@
 # Platform.sh (CLI) extension
 
-Platform.sh is fully-managed Platform as a Service (PaaS) that lets you deploy and scale web and API apps.
-Use Platform.sh extension for VS Code to quickly manage you project at Platform.sh.
+Platform.sh is a fully-managed Platform as a Service (PaaS), which lets you deploy, scale web and API apps.
+Use Platform.sh's extension for VS Code to quickly manage your project at Platform.sh.
 
-Visit the [Web site](https://platform.sh/) for more information about Platform.sh.
+Visit Platform.sh's [website](https://platform.sh/) for more information about the company.
 
 ## Features
 
-- Open public URL of route define
+- Open public URLs of defined routes
 - Open console
 - Open SSH session
 
 ## Requirements
 
-1. For use this extensions you need to [install Platform CLI](https://docs.platform.sh/development/cli.html#1-install)
-2. install Platform.sh CLI extension for Visual Studio Code
-3. Configure binary path to platform CLI
+1. To use this extensions you need to [install Platform's CLI](https://docs.platform.sh/development/cli.html#1-install)
+2. Install Platform.sh's CLI extension for Visual Studio Code
+3. Configure binary path to Platform.sh's CLI
 
 ## Release Notes
 
