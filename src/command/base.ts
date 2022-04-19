@@ -1,16 +1,12 @@
 'use strict';
 
 export class PshContext {
-    projectId: string|undefined;
-    environment: string|undefined;
+    projectId: string|null|undefined;
+    environment: string|null|undefined;
 
-    constructor(projectId: string|undefined, environment: string|undefined) {
-        if (projectId) {
-            this.projectId = projectId;
-        }
-        if (environment) {
-            this.environment = environment;
-        }
+    constructor(projectId: string|null|undefined, environment: string|null|undefined) {
+        this.projectId = projectId;
+        this.environment = environment;
     }
 
     toString(): string {

@@ -21,7 +21,9 @@
 			"name": "Extension Tests",
 			"type": "extensionHost",
 			"request": "launch",
+            "runtimeExecutable": "${execPath}",
 			"args": [
+                "${workspaceFolder}/src/test/fixtures/fake-project1",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
 			],

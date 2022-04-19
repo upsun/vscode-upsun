@@ -1,4 +1,5 @@
 'use strict';
+
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as os from 'os';
@@ -59,7 +60,7 @@ export class PshCli {
         const fullCmd = `${pshBin}  ${command}`;
         console.debug(`Command : ${fullCmd}`);
         const {err, stdout, stderr} = await exec(fullCmd, options);
-        
+
         if (err) {
             console.error('error: ' + err);
             console.error('stderr: ' + stderr);

@@ -12,11 +12,11 @@ export async function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage('Hello World from Psh CLI!');
         })
     );
+    context.subscriptions.push(vscode.commands.registerCommand('getContext', () => context));
 
     registerApp(context);
     registerConsole(context);
     registerEnvironment(context);
-
 }
 
 export function deactivate() {}

@@ -18,10 +18,16 @@ export class PshConfig {
 
     constructor(root: string) {
         this.pshFolder = path.join(root, PSH_FOLDER);
+        console.debug(`Project Folder : ${this.pshFolder}`);
+
         this.pshRoutes = load(fs.readFileSync(path.join(this.pshFolder, PSH_ROUTES), "utf8"));
         this.pshServices = load(fs.readFileSync(path.join(this.pshFolder, PSH_SERVICES), "utf8"));
         const pshLocal = load(fs.readFileSync(path.join(this.pshFolder, PSH_LOCAL), "utf8"));
-        this.pshProjectId = (pshLocal as any).id;
+
+        this.pshProjectId = (pshLocal as any).id.toString();
+        console.debug(`Project ID : ${this.pshProjectId}`);
+
         this.pshHost = (pshLocal as any).host;
+        console.debug(`Project Host : ${this.pshHost}`);
     }
 }

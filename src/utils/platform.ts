@@ -36,8 +36,8 @@ const architectures: Record<string, Architecture> = {
 /**
  * Identify the host's native architecture/bitness.
  */
-export function getArchitecture(): Architecture {
-    const fromProc = architectures[process.arch];
+export function getArchitecture(archIdx: string = process.arch): Architecture {
+    const fromProc = architectures[archIdx];
     if (fromProc !== undefined) {
         return fromProc;
     }

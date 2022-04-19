@@ -13,7 +13,7 @@ export abstract class WebBrowser{
             case OSType.OSX:
                 cmd = 'open'; break;
             case OSType.Linux:
-            default: 
+            default:
                 cmd = 'xdg-open'; break;
         }
 
