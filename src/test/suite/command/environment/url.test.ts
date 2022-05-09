@@ -7,7 +7,7 @@ suite('Env/URL Test Suite', () => {
     let cmd: PshCommand;
 
     setup(() => {
-        const ctx = new PshContext(null, null);
+        const ctx = new PshContext(null, null, null);
         cmd = new UrlCommand(ctx);
     });
 

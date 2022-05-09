@@ -2,15 +2,17 @@
 
 import * as vscode from 'vscode';
 import { Tools } from '../../project';
-import { WebBrowser } from '../../utils/webbrowser';
+import { WebCommand } from './web';
 
 export async function registerConsole(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand('psh-cli.console.open', async () => {
-            const ctx = Tools.makeContext();
-            const url = `https://console.platform.sh/org/${ctx.projectId}/${ctx.environment}/`;
-            WebBrowser.open(url);
+            const [pshCli, ctx] = Tools.makeCliContext(context);
+            await pshCli.executeObj(new WebCommand(ctx)).then(resultRaw => {
+                console.debug(resultRaw);
+            });
+            pshCli.dispose();
         })
     );
 }

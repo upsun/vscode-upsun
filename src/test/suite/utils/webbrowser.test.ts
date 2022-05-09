@@ -4,9 +4,13 @@ import { WebBrowser } from '../../../utils/webbrowser';
 suite('WebBrowser Test Suite', () => {
 
     test('WebBrowser.open', () => {
-        WebBrowser.open('Test : You can close !');
+        try {
+            WebBrowser.open('Test : You can close !');
 
-        assert.equal(1, 1);
+            assert.equal(1, 1);
+        } catch (e) {
+            assert.fail();
+        }
     });
 
 });

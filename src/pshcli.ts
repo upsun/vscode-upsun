@@ -30,16 +30,16 @@ export class PshCli {
             await vscode.window.withProgress({
                 cancellable: false,
                 location: vscode.ProgressLocation.Notification,
-                title: 'Platform.sh loaded...',
+                title: 'Platform.sh loaded...\n',
                 }, async (progress) => {
-                    // progress.report({
-                    //     message: `(query)`,
-                    // });
+                    progress.report({
+                         message: `...`,
+                    });
                     raw = await this.executeStr(`${command}`);
                 });
         }
-        const result = command.convert(raw);
-        command.process(result);
+        const param = command.convert(raw);
+        const result = await command.process(param);
 
         return result;
     }
@@ -63,10 +63,10 @@ export class PshCli {
 
         if (err) {
             console.error('error: ' + err);
-            console.error('stderr: ' + stderr);
+            console.error('stderr:\n' + stderr);
             result = stderr;
         } else {
-            console.debug('stdout: ' + stdout);
+            console.debug('stdout:\n' + stdout);
             result = stdout;
         }
 

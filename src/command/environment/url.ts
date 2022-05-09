@@ -1,42 +1,43 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { PshContextCommand } from "../base";
+import { PshSelectorContextCommand } from "../base";
 import { WebBrowser } from '../../utils/webbrowser';
 
 
 const CLI_CMD = 'environment:url';
-export class UrlCommand extends PshContextCommand {
+export class UrlCommand extends PshSelectorContextCommand {
 
     prepare(): string {
         return `${CLI_CMD} --pipe ${this.context}`;
     }
 
-    convert(raw: string) {
+    convert(raw: string): any {
         const subRaw = raw.replace(/\n$/, "");  // Remove last \n (only)
         return subRaw.split("\n");
     }
 
-    process(param: any) {
+    async process(param: any) {
+        let url;
         if (Array.isArray(param)) {
             if (param.length > 1) {
-                const quickPick = vscode.window.createQuickPick();
-                quickPick.items = param.map((label: string) => ({ label }));
-                quickPick.onDidChangeSelection(selection => {
-                    if (selection[0]) {
-                        const url = selection[0].label;
-                        WebBrowser.open(url);
-                    }
-                });
-                quickPick.onDidHide(() => quickPick.dispose());
-                quickPick.show();
+                const items = param.map((label: string) => ({ label }));
+                const pick = await vscode.window.showQuickPick(items);
+
+                if (pick) {
+                    url = pick.label;
+                }
             } else {
-                WebBrowser.open(param[0]);
+                url = param[0];
             }
         } else {
-            WebBrowser.open(param);
+            url = param;
         }
 
-        return `Avalialable urls ${param}`;
+        if (url && !this.isSelector) {
+            WebBrowser.open(url);
+        }
+
+        return url;
     }
 }

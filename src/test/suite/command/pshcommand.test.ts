@@ -14,7 +14,7 @@ class TestPshContextCommand extends PshContextCommand {
 suite('PshCommand Test Suite', () => {
 
     test('PshContextCommand.PshContext', () => {
-        const ctx = new PshContext(null, null);
+        const ctx = new PshContext(null, null, null);
         const cmd = new TestPshContextCommand(ctx);
 
         assert.strictEqual(cmd.context, ctx, 'Context is not stored in PshCommandContext !');

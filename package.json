@@ -1,11 +1,16 @@
 {
   "name": "psh-cli",
-  "displayName": "Psh CLI",
+  "displayName": "Platform.sh Integration",
   "description": "Front end to platform.sh CLI on Visual Studio Code ",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Mickael GAILLARD",
     "url": "https://platform.sh"
+  },
+  "publisher": "platform.sh",
+  "icon": "resources/images/pshext-logo.jpg",
+  "repository": {
+    "url": "https://lab.plat.farm/mickael.gaillard/vscode-psh-cli.git"
   },
   "engines": {
     "vscode": "^1.66.0"
@@ -14,17 +19,109 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:psh-cli.test",
+    "onCommand:psh-cli.app.list",
     "onCommand:psh-cli.console.open",
     "onCommand:psh-cli.environment:url",
-    "onCommand:psh-cli.environment:ssh"
+    "onCommand:psh-cli.environment:ssh",
+    "onCommand:psh-cli.environment:activate",
+    "onCommand:psh-cli.environment:deactivate",
+    "onCommand:psh-cli.environment:logs",
+    "onCommand:psh-cli.environment:redeploy",
+    "onCommand:psh-cli.environment:synchronize",
+    "onCommand:psh-cli.environment:list",
+    "onView:psh-cli.nodes.apps",
+    "onCommand:psh-cli.nodes.apps.refreshEntry",
+    "onCommand:psh-cli.nodes.apps.sshEntry",
+    "onCommand:psh-cli.nodes.apps.logEntry",
+    "onView:psh-cli.nodes.envs",
+    "onCommand:psh-cli.nodes.envs.refreshEntry",
+    "onCommand:psh-cli.nodes.envs.activateEntry",
+    "onCommand:psh-cli.nodes.envs.deactivateEntry",
+    "onCommand:psh-cli.nodes.envs.redeployEntry",
+    "onCommand:psh-cli.nodes.envs.urlEntry",
+    "onView:psh-cli.nodes.rels",
+    "onCommand:psh-cli.nodes.rels.refreshEntry"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "psh-cli",
+          "title": "Platform.sh",
+          "icon": "resources/images/Platformsh_Icon_black_full.svg"
+        }
+      ]
+    },
+
+    "views": {
+      "psh-cli": [
+        {
+          "id": "psh-cli.nodes.envs",
+          "name": "Environments"
+        },
+        {
+          "id": "psh-cli.nodes.apps",
+          "name": "Applications"
+        },
+        {
+          "id": "psh-cli.nodes.rels",
+          "name": "Relations"
+        }
+      ]
+    },
+
+    "menus": {
+      "view/title": [
+        {
+          "command": "psh-cli.nodes.envs.refreshEntry",
+          "when": "view == psh-cli.nodes.envs",
+          "group": "navigation"
+        },
+        {
+          "command": "psh-cli.nodes.apps.refreshEntry",
+          "when": "view == psh-cli.nodes.apps",
+          "group": "navigation"
+        },
+        {
+          "command": "psh-cli.nodes.rels.refreshEntry",
+          "when": "view == psh-cli.nodes.rels",
+          "group": "navigation"
+        }
+      ],
+
+      "view/item/context": [
+        {
+          "command": "psh-cli.nodes.apps.sshEntry",
+          "when": "view == psh-cli.nodes.apps && viewItem =~ /^application.*$/"
+        },
+        {
+          "command": "psh-cli.nodes.apps.logEntry",
+          "when": "view == psh-cli.nodes.apps && viewItem =~ /^application.*$/"
+        },
+        {
+          "command": "psh-cli.nodes.envs.activateEntry",
+          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment((?!active).)*$/"
+        },
+        {
+          "command": "psh-cli.nodes.envs.deactivateEntry",
+          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
+        },
+        {
+          "command": "psh-cli.nodes.envs.redeployEntry",
+          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
+        },
+        {
+          "command": "psh-cli.nodes.envs.urlEntry",
+          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
+        }
+      ]
+    },
+
     "commands": [
       {
-        "command": "psh-cli.test",
-        "title": "Hello World",
+        "command": "psh-cli.app.list",
+        "title": "Get a list of Applications",
         "category": "Platform.sh"
       },
       {
@@ -41,8 +138,82 @@
         "command": "psh-cli.environment:ssh",
         "title": "Open SSH to the current environment",
         "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:activate",
+        "title": "Activate current environment",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:deactivate",
+        "title": "Deactivate current environment",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:logs",
+        "title": "Display log of current environment",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:synchronize",
+        "title": "Synchronize an environment's data from its parent",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.environment:list",
+        "title": "Get a list of environments",
+        "category": "Platform.sh"
+      },
+      {
+        "command": "psh-cli.nodes.apps.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "psh-cli.nodes.apps.sshEntry",
+        "title": "SSH"
+      },
+      {
+        "command": "psh-cli.nodes.apps.logEntry",
+        "title": "Logs"
+      },
+      {
+        "command": "psh-cli.nodes.envs.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "psh-cli.nodes.envs.activateEntry",
+        "title": "Activate"
+      },
+      {
+        "command": "psh-cli.nodes.envs.deactivateEntry",
+        "title": "De-Activate"
+      },
+      {
+        "command": "psh-cli.nodes.envs.redeployEntry",
+        "title": "Redeploy"
+      },
+      {
+        "command": "psh-cli.nodes.envs.urlEntry",
+        "title": "Open URL"
+      },
+      {
+        "command": "psh-cli.nodes.rels.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
       }
     ],
+
     "configuration": [
       {
         "title": "Platform.sh CLI",
@@ -63,15 +234,7 @@
           }
         }
       }
-    ],
-    "menus": {
-      "commandPalette": [
-        {
-          "command": "psh-cli.test",
-          "when": "workbenchState != empty"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -79,8 +242,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "coverage": "nyc npm run test"
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
@@ -105,5 +267,8 @@
   "dependencies": {
     "arch": "^2.2.0",
     "js-yaml": "^4.1.0"
-  }
+  },
+  "extensionDependencies": [
+    "vscode.git"
+  ]
 }

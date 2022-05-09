@@ -6,3 +6,7 @@ node_modules
 
 .nyc_output/
 coverage/
+release/
+resources/logo/drop/**
+
+password*.*

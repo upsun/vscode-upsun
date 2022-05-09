@@ -1,34 +1,45 @@
 'use strict';
 
-export class PshContext {
-    projectId: string|null|undefined;
-    environment: string|null|undefined;
+import * as vscode from 'vscode';
 
-    constructor(projectId: string|null|undefined, environment: string|null|undefined) {
-        this.projectId = projectId;
-        this.environment = environment;
-    }
+export class PshContext {
+
+    constructor(
+        public readonly projectId: string|null|undefined,
+        public readonly environment: string|null|undefined,
+        public readonly vscontext: vscode.ExtensionContext|null|undefined) { }
 
     toString(): string {
-        let result = '';
+        return this.allParameter();
+    }
 
+    allParameter(): string {
+        return this.projectParameter() + this.environmentParameter();
+    }
+
+    projectParameter(): string {
+        let result = '';
         if (this.projectId) {
             result += ` -p ${this.projectId}`;
         }
+        return result;
+    }
 
+    environmentParameter(): string {
+        let result = '';
         if (this.environment) {
             result += ` -e ${this.environment}`;
         }
-
         return result;
     }
+
 }
 
 export abstract class PshCommand {
 
     abstract prepare(): string;
 
-    abstract process(param: any): void;
+    abstract process(param: any): any;
 
     // Hack because https://platformsh.slack.com/archives/C0JE8AE13/p1639572899034600
     convert(raw: string): any {
@@ -44,11 +55,20 @@ export abstract class PshCommand {
     };
 }
 
-export abstract class PshContextCommand extends PshCommand {
-    context: PshContext;
+export interface PshSelector {}
 
-    constructor(context: PshContext) {
+export abstract class PshContextCommand extends PshCommand {
+
+    constructor(
+        public readonly context: PshContext) {
         super();
-        this.context = context;
+    }
+}
+
+export abstract class PshSelectorContextCommand extends PshContextCommand implements PshSelector {
+
+    constructor(context: PshContext,
+        public readonly isSelector: boolean = false) {
+        super(context);
     }
 }

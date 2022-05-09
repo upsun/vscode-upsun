@@ -12,7 +12,7 @@ suite('PshConfig Test Suite', () => {
     });
 
     test('PshConfig.pshProjectId', () => {
-        assert.equal(config.pshProjectId, '8888888888888');
+        assert.equal(config.pshProjectId, '6q5ffgcj3ieeo');
     });
 
     test('PshConfig.pshHost', () => {

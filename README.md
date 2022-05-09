@@ -8,7 +8,7 @@ Visit Platform.sh's [website](https://platform.sh/) for more information about t
 ## Features
 
 - Open public URLs of defined routes
-- Open console
+- Open Platform.sh console
 - Open SSH session
 
 ## Requirements

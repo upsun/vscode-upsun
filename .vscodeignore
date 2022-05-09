@@ -8,3 +8,10 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+
+scripts/**
+dist/**
+resources/logo/drop/**
+out/coverage/**
+out/test/**
+password*.*

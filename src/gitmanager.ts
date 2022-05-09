@@ -9,7 +9,14 @@ export class GitManager {
         const ext =  vscode.extensions.getExtension('vscode.git');
         if (ext) {
             console.debug('Load GIT API...');
-            const gitExtension = ext.exports;
+            let gitExtension: any|undefined;
+            if (ext.isActive) {
+                gitExtension = ext.exports;
+            } else {
+                ext.activate().then( result => {
+                    gitExtension = result;
+                });
+            }
             const api = gitExtension.getAPI(1);
 
             console.debug('Load repository...');
@@ -25,7 +32,11 @@ export class GitManager {
     currentBranch() : string|undefined {
         let result = undefined;
         if (this.repo) {
-            result = this.repo.state.HEAD.name;
+            if (this.repo.state.HEAD) {
+                result = this.repo.state.HEAD.name;
+            } else {
+                console.error('No data from repository');
+            }
         }
 
         console.debug(`Git Branch : ${result}`);
