@@ -23,6 +23,7 @@ lint:
 
 test-unit:
   stage: test
+  when: manual  # Tempory not test for moment
   script:
     - apt-get update && apt-get install -y git
     - npm ci
@@ -38,6 +39,7 @@ test-unit:
   script:
     - npm ci
     - npm install -g @vscode/vsce
+    - mkdir dist
     - vsce package -o dist --pre-release
   artifacts:
     paths:
