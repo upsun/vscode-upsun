@@ -1,0 +1,66 @@
+
+# run the pipeline only on MRs, tags, and default branch
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+image: node:16-slim
+
+stages:
+  - test
+  - package
+  - publish
+
+lint:
+  stage: test
+  script:
+    - apt-get update && apt-get install -y git
+    - npm ci
+    - git checkout . # the npm install automatically fixes package.json formatting issues, but we need the CI to discover them so we revert any changes
+    - npm run lint
+
+test-unit:
+  stage: test
+  script:
+    - apt-get update && apt-get install -y git
+    - npm ci
+    - npm run test:unit -- --coverage
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - reports/unit.xml
+
+.package:
+  stage: package
+  script:
+    - npm ci
+    - npm install -g @vscode/vsce
+    - vsce package -o dist --pre-release
+  artifacts:
+    paths:
+      - 'dist/*.vsix'
+
+package_release:
+  extends: .package
+  artifacts:
+    expire_in: 1 year
+  only:
+    - tags
+
+package_test:
+  extends: .package
+  artifacts:
+    expire_in: 10 days
+  except:
+    - tags
+
+# publish_marketplace:
+#   stage: publish
+#   script:
+#     - npx vsce publish --packagePath dist/*.vsix -p $AZURE_ACCESS_TOKEN
+#   when: manual
+#   only:
+#     - tags
