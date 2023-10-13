@@ -34,6 +34,20 @@ test-unit:
       junit:
         - reports/unit.xml
 
+test-integration:
+  stage: test
+  variables:
+    DISPLAY: ':99.0'
+  script:
+    - apt-get update
+    - apt-get install -y xvfb libxtst6 libnss3 libgtk-3-0 libxss1 libasound2 libsecret-1-0 libgbm-dev git
+    #- npm install -g @vscode/vsce
+    - npm ci
+    - echo $DISPLAY
+    - /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+    - npm run test
+
+
 .package:
   stage: package
   script:
@@ -62,7 +76,7 @@ package_test:
 # publish_marketplace:
 #   stage: publish
 #   script:
-#     - npx vsce publish --packagePath dist/*.vsix -p $AZURE_ACCESS_TOKEN
+#     - vsce publish --packagePath dist/*.vsix -p $AZURE_ACCESS_TOKEN
 #   when: manual
 #   only:
 #     - tags
