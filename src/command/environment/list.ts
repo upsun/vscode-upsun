@@ -7,6 +7,10 @@ import { PshEnvironmentItem } from '../../provider/envs';
 const CLI_CMD = 'environment:list';
 export class ListCommand extends PshSelectorContextCommand {
 
+    displayMessage(): string {
+        return `List environment of ${this.context.projectId}`;
+    }
+
     prepare(): string {
         return `${CLI_CMD} --format=csv --no-header --columns=id,machine_name,title,status,type,created,updated  ${this.context.projectParameter()}`;
     }
@@ -59,7 +63,8 @@ export class ListCommand extends PshSelectorContextCommand {
 export enum EnvStatus {
     unknown = 'Unknown',
     active = 'Active',
-    inatcive = 'Inactive'
+    inatcive = 'Inactive',
+    progess = 'In progress'
 }
 
 export enum EnvType {

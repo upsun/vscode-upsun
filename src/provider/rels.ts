@@ -3,8 +3,7 @@ import * as vscode from 'vscode';
 import { Tools } from '../project';
 import { ProviderBase } from './common';
 import { PshRelationships, RelationshipsCommand } from '../command/environment/relationships';
-
-const STORAGE_DEFAULT_APP = 'default_application';
+import { PshStorage } from '../pshstore';
 
 export function registerViewRelationship(context: vscode.ExtensionContext) {
     Tools.registerTreeview(
@@ -12,7 +11,6 @@ export function registerViewRelationship(context: vscode.ExtensionContext) {
         'psh-cli.nodes.rels',
         'psh-cli.nodes.rels.refreshEntry'
     );
-
 }
 
 export class PshRelationshipItem extends vscode.TreeItem {
@@ -30,18 +28,22 @@ export class PshRelationshipItem extends vscode.TreeItem {
         this.description = `${this.item.type}:${this.item.version} `;
         this.tooltip = this.item.machine;
       }
-
 }
 
 export class RelsProvider extends ProviderBase<PshRelationshipItem> {
 
     getChildren(element?: PshRelationshipItem): vscode.ProviderResult<PshRelationshipItem[]> {
+        const defaultApp = new PshStorage(this.vscontext).getDefaultApp();
+
         if (!this.workspaceRoot) {
-            vscode.window.showInformationMessage('No dependency in empty workspace');
+            vscode.window.showInformationMessage('No dependency in empty workspace.');
             return Promise.resolve([]);
         }
 
-        const defaultApp = this.vscontext.workspaceState.get(STORAGE_DEFAULT_APP, null);
+        if (!defaultApp) {
+            vscode.window.showInformationMessage('No app found.');
+            return Promise.resolve([]);
+        }
 
         const [pshCli, ctx] = Tools.makeCliContext(this.vscontext);
         return pshCli.executeObj(new RelationshipsCommand(ctx, defaultApp));

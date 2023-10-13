@@ -2,10 +2,9 @@ import * as vscode from 'vscode';
 import { registerApp } from './command/app/register';
 import { registerConsole } from './command/console/register';
 import { registerEnvironment } from './command/environment/register';
-import { AppsProvider, registerViewApplication } from './provider/apps';
-import { EnvsProvider, registerViewEnvironment } from './provider/envs';
-import { Tools } from './project';
-import { registerViewRelationship, RelsProvider } from './provider/rels';
+import { registerViewApplication } from './provider/apps';
+import { registerViewEnvironment } from './provider/envs';
+import { registerViewRelationship } from './provider/rels';
 
 
 export async function activate(context: vscode.ExtensionContext) {

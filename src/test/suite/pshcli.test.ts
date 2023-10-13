@@ -3,6 +3,10 @@ import { PshCommand } from '../../command/base';
 import { PshCli } from '../../pshcli';
 
 class MockCommand extends PshCommand {
+    displayMessage(): string {
+        throw new Error('Method not implemented.');
+    }
+
     prepare(): string {
         return " > /dev/null ; echo -n success";
     }

@@ -53,6 +53,8 @@ export abstract class PshCommand {
     public toString = () : string => {
         return this.prepare();
     };
+
+    abstract displayMessage(): string;
 }
 
 export interface PshSelector {}

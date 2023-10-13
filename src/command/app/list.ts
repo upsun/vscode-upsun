@@ -3,11 +3,14 @@
 import * as vscode from 'vscode';
 import { PshSelectorContextCommand } from "../base";
 import { PshApplicationItem } from '../../provider/apps';
-
-const STORAGE_DEFAULT_APP = 'default_application';
+import { PshStorage } from '../../pshstore';
 
 const CLI_CMD = 'app:list';
 export class ListCommand extends PshSelectorContextCommand {
+
+    displayMessage(): string {
+        return `List Applications of ${this.context.environment}`;
+    }
 
     prepare(): string {
         return `${CLI_CMD} --format=csv --no-header ${this.context}`;
@@ -40,14 +43,15 @@ export class ListCommand extends PshSelectorContextCommand {
             const items = [];
             let pos = 0;
             let found = false;
+            const store = new PshStorage(this.context.vscontext as vscode.ExtensionContext);
             const vsctx = this.context.vscontext as vscode.ExtensionContext;
-            const defaultApp = await vsctx.workspaceState.get(STORAGE_DEFAULT_APP, null);
+            const defaultApp = await store.getDefaultApp();
 
             for(var app of param) {
                 let isActive = (defaultApp === app.name);
                 if (defaultApp === null && pos === 0) {
                     isActive = true;
-                    await vsctx.workspaceState.update(STORAGE_DEFAULT_APP, app.name);
+                    await store.setDefaultApp(app.name);
                 }
                 if (isActive) {
                     found = true;
@@ -58,7 +62,7 @@ export class ListCommand extends PshSelectorContextCommand {
             }
 
             if (!found) {
-                await vsctx.workspaceState.update(STORAGE_DEFAULT_APP, null);
+                await store.resetDefaultApp();
             }
 
             return items;

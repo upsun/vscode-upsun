@@ -18,22 +18,30 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
     );
 
     vscode.commands.registerCommand("psh-cli.nodes.envs.activateEntry", async (res: PshEnvironmentItem) => {
-        const [pshCli, ctx] = Tools.makeCliContext(context);
-        const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
-        await pshCli.executeObj(new ActivateCommand(currentCtx)).then(resultRaw => {
-            console.debug(resultRaw);
-        });
-        pshCli.dispose();
-        provider.refresh();
+        try {
+            const [pshCli, ctx] = Tools.makeCliContext(context);
+            const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
+            await pshCli.executeObj(new ActivateCommand(currentCtx)).then(resultRaw => {
+                console.debug(resultRaw);
+            });
+            pshCli.dispose();
+        }
+        finally {
+            provider.refresh();
+        }
     });
     vscode.commands.registerCommand("psh-cli.nodes.envs.deactivateEntry", async (res: PshEnvironmentItem) => {
-        const [pshCli, ctx] = Tools.makeCliContext(context);
-        const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
-        await pshCli.executeObj(new DeactivateCommand(currentCtx)).then(resultRaw => {
-            console.debug(resultRaw);
-        });
-        pshCli.dispose();
-        provider.refresh();
+        try {
+            const [pshCli, ctx] = Tools.makeCliContext(context);
+            const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
+            await pshCli.executeObj(new DeactivateCommand(currentCtx)).then(resultRaw => {
+                console.debug(resultRaw);
+            });
+            pshCli.dispose();
+        }
+        finally {
+            provider.refresh();
+        }
     });
     vscode.commands.registerCommand("psh-cli.nodes.envs.redeployEntry", async (res: PshEnvironmentItem) => {
         const [pshCli, ctx] = Tools.makeCliContext(context);
@@ -68,7 +76,7 @@ export class PshEnvironmentItem extends vscode.TreeItem {
         }
 
         // Is active
-        const isActive = this.item.status === EnvStatus.active;
+        const isActive = this.item.status === EnvStatus.active || this.item.status === EnvStatus.progess;
         const fileName = (isActive) ? "circle-filled.svg" : "circle-outline.svg";
         if (isActive){
             this.contextValue += ".active";
