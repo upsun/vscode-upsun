@@ -4,19 +4,19 @@ import { Architecture, getArchitecture, getOSType, OSType } from '../../../utils
 suite('Platform Test Suite', () => {
 
     test('Platform.getOSType.Linux', () => {
-        assert.strictEqual(getOSType('linux'), OSType.Linux);
+        assert.strictEqual(getOSType('linux'), OSType.linux);
     });
 
     test('Platform.getOSType.OSX', () => {
-        assert.strictEqual(getOSType('darwin'), OSType.OSX);
+        assert.strictEqual(getOSType('darwin'), OSType.osx);
     });
 
     test('Platform.getOSType.Win', () => {
-        assert.strictEqual(getOSType('win'), OSType.Windows);
+        assert.strictEqual(getOSType('win'), OSType.windows);
     });
 
     test('Platform.getOSType.Other', () => {
-        assert.strictEqual(getOSType('foo'), OSType.Unknown);
+        assert.strictEqual(getOSType('foo'), OSType.unknown);
     });
 
     test('Platform.getArchitecture.x86', () => {
@@ -28,7 +28,7 @@ suite('Platform Test Suite', () => {
     });
 
     test('Platform.getArchitecture.empty', () => {
-        assert.strictEqual(getArchitecture(''), Architecture.Unknown);
+        assert.strictEqual(getArchitecture(''), Architecture.unknown);
     });
 
     test('Platform.getArchitecture.undefine', () => {

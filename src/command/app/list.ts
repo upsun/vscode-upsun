@@ -58,7 +58,7 @@ export class ListCommand extends PshSelectorContextCommand {
                 }
                 const item = new PshApplicationItem(vsctx, app, isActive);
                 items.push(item);
-                pos += 1;
+                pos += 1;  //TODO: remove this monster.
             }
 
             if (!found) {

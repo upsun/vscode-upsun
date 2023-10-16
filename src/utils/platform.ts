@@ -3,34 +3,34 @@
 // Base on https://github.com/microsoft/vscode-python/blob/main/src/client/common/utils/platform.ts
 
 export enum Architecture {
-    Unknown = 1,
+    unknown = 1,
     x86 = 2,
     x64 = 3,
 }
 export enum OSType {
-    Unknown = 'Unknown',
-    Windows = 'Windows',
-    OSX = 'OSX',
-    Linux = 'Linux',
+    unknown = 'Unknown',
+    windows = 'Windows',
+    osx = 'OSX',
+    linux = 'Linux',
 }
 
 // Return the OS type for the given platform string.
 export function getOSType(platform: string = process.platform): OSType {
     if (/^win/.test(platform)) {
-        return OSType.Windows;
+        return OSType.windows;
     } else if (/^darwin/.test(platform)) {
-        return OSType.OSX;
+        return OSType.osx;
     } else if (/^linux/.test(platform)) {
-        return OSType.Linux;
+        return OSType.linux;
     } else {
-        return OSType.Unknown;
+        return OSType.unknown;
     }
 }
 
 const architectures: Record<string, Architecture> = {
     x86: Architecture.x86, // 32-bit
     x64: Architecture.x64, // 64-bit
-    '': Architecture.Unknown,
+    '': Architecture.unknown,
 };
 
 /**
@@ -43,5 +43,5 @@ export function getArchitecture(archIdx: string = process.arch): Architecture {
     }
 
     const arch = require('arch');
-    return architectures[arch()] || Architecture.Unknown;
+    return architectures[arch()] || Architecture.unknown;
 }
