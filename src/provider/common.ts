@@ -11,7 +11,7 @@ export abstract class ProviderBase<T> implements vscode.TreeDataProvider<T> {
         protected readonly vscontext: vscode.ExtensionContext) { }
 
     getTreeItem(element: T): vscode.TreeItem | Thenable<vscode.TreeItem> {
-        return element;
+        return element as vscode.TreeItem | Thenable<vscode.TreeItem>;
     }
 
     getChildren(element?: T): vscode.ProviderResult<T[]> {

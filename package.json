@@ -19,31 +19,16 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:psh-cli.app.list",
-    "onCommand:psh-cli.console.open",
-    "onCommand:psh-cli.environment:url",
-    "onCommand:psh-cli.environment:ssh",
-    "onCommand:psh-cli.environment:activate",
-    "onCommand:psh-cli.environment:deactivate",
-    "onCommand:psh-cli.environment:logs",
-    "onCommand:psh-cli.environment:redeploy",
-    "onCommand:psh-cli.environment:synchronize",
-    "onCommand:psh-cli.environment:list",
-    "onView:psh-cli.nodes.apps",
-    "onCommand:psh-cli.nodes.apps.refreshEntry",
-    "onCommand:psh-cli.nodes.apps.sshEntry",
-    "onCommand:psh-cli.nodes.apps.logEntry",
-    "onView:psh-cli.nodes.envs",
-    "onCommand:psh-cli.nodes.envs.refreshEntry",
-    "onCommand:psh-cli.nodes.envs.activateEntry",
-    "onCommand:psh-cli.nodes.envs.deactivateEntry",
-    "onCommand:psh-cli.nodes.envs.redeployEntry",
-    "onCommand:psh-cli.nodes.envs.urlEntry",
-    "onView:psh-cli.nodes.rels",
-    "onCommand:psh-cli.nodes.rels.refreshEntry"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsWelcome": [
+      {
+        "view": "psh-cli.nodes.envs",
+        "contents": "No Platform.sh project found [learn more](https://platform.sh/).\n[Initialize project](command:todo.addEntry)"
+      }
+    ],
+
     "viewsContainers": {
       "activitybar": [
         {
