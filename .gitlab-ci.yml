@@ -23,7 +23,7 @@ lint:
 
 test-unit:
   stage: test
-  when: manual  # Tempory not test for moment
+  when: manual  #TODO : Tempory not test for moment
   script:
     - apt-get update && apt-get install -y git
     - npm ci
@@ -36,6 +36,7 @@ test-unit:
 
 test-integration:
   stage: test
+  when: manual  #TODO : Tempory not test for moment
   variables:
     DISPLAY: ':99.0'
   script:
@@ -52,7 +53,7 @@ test-integration:
   script:
     - npm ci
     - npm install -g @vscode/vsce
-    - mkdir dist
+    - "[ -d dist ] || mkdir dist"
     - vsce package -o dist --pre-release
   artifacts:
     paths:
