@@ -73,10 +73,10 @@ package_test:
   except:
     - tags
 
-# publish_marketplace:
-#   stage: publish
-#   script:
-#     - vsce publish --packagePath dist/*.vsix -p $AZURE_ACCESS_TOKEN
-#   when: manual
-#   only:
-#     - tags
+publish_marketplace:
+  stage: publish
+  script:
+    - vsce publish --packagePath dist/*.vsix -p $AZURE_ACCESS_TOKEN
+  when: manual
+  only:
+    - tags
