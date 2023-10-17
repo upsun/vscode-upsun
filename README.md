@@ -17,6 +17,16 @@ Visit Platform.sh's [website](https://platform.sh/) for more information about t
 2. Install Platform.sh's CLI extension for Visual Studio Code
 3. Configure binary path to Platform.sh's CLI
 
+## Building locally
+
+```
+npm install
+./scripts/package_make.sh
+```
+
+Which should output dist/psh-cli-x.x.x.vsix that you can locally install
+
+
 ## Release Notes
 
 ### 0.2.0 - beta

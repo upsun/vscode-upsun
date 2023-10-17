@@ -40,6 +40,15 @@ export class PshContext {
 
 /**
  * Generic Base of Command
+ * 
+ * Life cycle :
+ * - check isCli()
+ * - call displayMessage() (in progress message only)
+ * - call prepare()
+ * - execute CLI commande (generic call)
+ * - call convert() to normalize data
+ * - call process() to apply next step of workflow
+ * - (can be return result for sub-call)
  */
 export abstract class PshCommand {
 
@@ -56,7 +65,7 @@ export abstract class PshCommand {
 
     // Hack because https://platformsh.slack.com/archives/C0JE8AE13/p1639572899034600
     /**
-     * Normalize result.
+     * Normalize data.
      * @param raw result from CLI
      * @returns Normalized result
      */    
