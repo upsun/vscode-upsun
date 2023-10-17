@@ -8,20 +8,22 @@ export abstract class WebBrowser{
     static open(url: string) {
         let cmd: string;
         switch (getOSType()) {
-            case OSType.Windows:
+            case OSType.windows:
                 cmd = 'start'; break;
-            case OSType.OSX:
+            case OSType.osx:
                 cmd = 'open'; break;
-            case OSType.Linux:
+            case OSType.linux:
             default:
                 cmd = 'xdg-open'; break;
         }
 
         const icmd = `${cmd} ${url}`;
         exec(icmd, (error: Error, stdout: string|Buffer, stderr: string|Buffer) => {
-            console.debug(stdout);
+            if (stdout) {
+                console.debug(stdout);
+            }
             if (error) {
-                console.debug(stderr);
+                console.error(stderr);
             }
         });
     }

@@ -12,7 +12,12 @@ import { SshCommand } from './ssh';
 import { SynchronizeCommand } from './synchronize';
 import { UrlCommand } from './url';
 
+/**
+ * Register handlers for commands of Environment
+ * @param context 
+ */
 export async function registerEnvironment(context: vscode.ExtensionContext) {
+    console.debug(`Register Environment handler`);
 
     context.subscriptions.push(
         vscode.commands.registerCommand('psh-cli.environment:url', async () => {

@@ -30,10 +30,10 @@ export class PshCli {
             await vscode.window.withProgress({
                 cancellable: false,
                 location: vscode.ProgressLocation.Notification,
-                title: 'Platform.sh loaded...\n',
-                }, async (progress) => {
+                title: 'Platform.sh',
+                } as vscode.ProgressOptions, async (progress) => {
                     progress.report({
-                         message: `...`,
+                         message: command.displayMessage(),
                     });
                     raw = await this.executeStr(`${command}`);
                 });

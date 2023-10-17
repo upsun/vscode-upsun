@@ -3,6 +3,9 @@ import { PshContext, PshContextCommand } from '../../../command/base';
 
 
 class TestPshContextCommand extends PshContextCommand {
+    displayMessage(): string {
+        throw new Error('Method not implemented.');
+    }
     prepare(): string {
         throw new Error('Method not implemented.');
     }

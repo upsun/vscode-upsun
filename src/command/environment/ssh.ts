@@ -14,6 +14,10 @@ export class SshCommand extends PshContextCommand {
         this.app = app;
     }
 
+    displayMessage(): string {
+        return `Open SSH on ${this.context.environment} - ${this.app}`;
+    }
+
     prepare(): string {
         return '';
     }

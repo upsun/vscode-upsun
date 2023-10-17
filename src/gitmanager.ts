@@ -22,10 +22,14 @@ export class GitManager {
             console.debug('Load repository...');
             this.repo = api.repositories[0];
             if (! this.repo) {
-                vscode.window.showInformationMessage('No Git repository. Platform.sh use Git, please run on PSH projet or init your project');
+                const msg = 'No Git repository. Platform.sh use Git, please run on PSH projet or init your project';
+                vscode.window.showInformationMessage(msg);
+                console.info(msg);
             }
         } else {
-            vscode.window.showInformationMessage('No Git extension. Platform.sh use Git, please install Git extension on VScode');
+            const msg = 'No Git extension. Platform.sh use Git, please install Git extension on VScode';
+            vscode.window.showInformationMessage(msg);
+            console.info(msg);
         }
     }
 

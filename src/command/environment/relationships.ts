@@ -15,6 +15,10 @@ export class RelationshipsCommand extends PshSelectorContextCommand {
         this.app = app;
     }
 
+    displayMessage(): string {
+        return `List relationship of ${this.app}`;
+    }
+
     prepare(): string {
         return `${CLI_CMD} ${this.context.allParameter()} -A ${this.app}`;
     }

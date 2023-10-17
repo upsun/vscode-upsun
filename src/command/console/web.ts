@@ -6,6 +6,10 @@ import { PshContextCommand } from "../base";
 const CLI_CMD = 'web';
 export class WebCommand extends PshContextCommand {
 
+    displayMessage(): string {
+        return `Open Console of ${this.context.projectId}`;
+    }
+
     prepare(): string {
         return `${CLI_CMD} --pipe ${this.context}`;
     }

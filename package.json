@@ -2,7 +2,7 @@
   "name": "psh-cli",
   "displayName": "Platform.sh Integration",
   "description": "Front end to platform.sh CLI on Visual Studio Code ",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Mickael GAILLARD",
     "url": "https://platform.sh"

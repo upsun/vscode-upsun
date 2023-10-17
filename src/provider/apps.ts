@@ -5,6 +5,7 @@ import { ListCommand, PshApplication } from '../command/app/list';
 import { ProviderBase } from './common';
 import { SshCommand } from '../command/environment/ssh';
 import { LogsCommand } from '../command/environment/logs';
+import { PshStorage } from '../pshstore';
 
 export function registerViewApplication(context: vscode.ExtensionContext) {
     Tools.registerTreeview(
@@ -27,7 +28,9 @@ export function registerViewApplication(context: vscode.ExtensionContext) {
         });
         pshCli.dispose();
     });
-
+    vscode.commands.registerCommand("psh-cli.nodes.apps.defaultEntry", async (res: PshApplicationItem) => {
+        new PshStorage(context).setDefaultApp(res.item.name);
+    });
 }
 
 export class PshApplicationItem extends vscode.TreeItem {

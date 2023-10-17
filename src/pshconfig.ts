@@ -10,11 +10,11 @@ const PSH_ROUTES = 'routes.yaml';
 const PSH_SERVICES = 'services.yaml';
 
 export class PshConfig {
-    pshFolder: string;
-    pshProjectId: string;
-    pshHost: string;
-    pshRoutes: any;
-    pshServices: any;
+    readonly pshFolder: string;
+    readonly pshProjectId: string;
+    readonly pshHost: string;
+    readonly pshRoutes: any;
+    readonly pshServices: any;
 
     constructor(root: string) {
         this.pshFolder = path.join(root, PSH_FOLDER);

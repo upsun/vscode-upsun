@@ -2,6 +2,9 @@
 // Use IntelliSense to learn about possible attributes.
 // Hover to view descriptions of existing attributes.
 // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+// /home/micky/Platform.sh/project/map-audit
+// /home/micky/Platform.sh/project/customers/william-reed-business-media
 {
 	"version": "0.2.0",
 	"configurations": [
@@ -10,7 +13,8 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--disable-extensions"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
@@ -25,7 +29,9 @@
 			"args": [
                 "${workspaceFolder}/src/test/fixtures/fake-project1",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index",
+				"--disable-extensions",
+				"--disable-workspace-trust",
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/test/**/*.js"
