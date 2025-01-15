@@ -14,13 +14,13 @@ import { UrlCommand } from './url';
 
 /**
  * Register handlers for commands of Environment
- * @param context 
+ * @param context
  */
 export async function registerEnvironment(context: vscode.ExtensionContext) {
     console.debug(`Register Environment handler`);
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:url', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:url', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new UrlCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -30,7 +30,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:ssh', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:ssh', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new AppListCommand(ctx, true)).then(async (selection) => {
                 if (selection) {
@@ -44,7 +44,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:activate', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:activate', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new ActivateCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -54,7 +54,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:deactivate', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:deactivate', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new DeactivateCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -64,7 +64,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:logs', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:logs', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new LogsCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -74,7 +74,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:redeploy', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:redeploy', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new RedeployCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -84,7 +84,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:synchronize', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:synchronize', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new SynchronizeCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);
@@ -94,7 +94,7 @@ export async function registerEnvironment(context: vscode.ExtensionContext) {
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.environment:list', async () => {
+        vscode.commands.registerCommand('upsun-cli.environment:list', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new ListCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);

@@ -12,11 +12,11 @@ suite('PshConfig Test Suite', () => {
     });
 
     test('PshConfig.pshProjectId', () => {
-        assert.equal(config.pshProjectId, '6q5ffgcj3ieeo');
+        assert.equal(config.projectId, '6q5ffgcj3ieeo');
     });
 
     test('PshConfig.pshHost', () => {
-        assert.strictEqual(config.pshHost, 'eu-1.platform.sh');
+        assert.strictEqual(config.host, 'eu-1.platform.sh');
     });
 
     test('PshConfig.pshRoutes', () => {

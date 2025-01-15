@@ -13,11 +13,11 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
     const provider = new EnvsProvider(Tools.getRootPath(), context);
     Tools.registerTreeview(
         provider,
-        'psh-cli.nodes.envs',
-        'psh-cli.nodes.envs.refreshEntry'
+        'upsun-cli.nodes.envs',
+        'upsun-cli.nodes.envs.refreshEntry'
     );
 
-    vscode.commands.registerCommand("psh-cli.nodes.envs.activateEntry", async (res: PshEnvironmentItem) => {
+    vscode.commands.registerCommand("upsun-cli.nodes.envs.activateEntry", async (res: PshEnvironmentItem) => {
         try {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
@@ -30,7 +30,7 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
             provider.refresh();
         }
     });
-    vscode.commands.registerCommand("psh-cli.nodes.envs.deactivateEntry", async (res: PshEnvironmentItem) => {
+    vscode.commands.registerCommand("upsun-cli.nodes.envs.deactivateEntry", async (res: PshEnvironmentItem) => {
         try {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
@@ -43,7 +43,7 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
             provider.refresh();
         }
     });
-    vscode.commands.registerCommand("psh-cli.nodes.envs.redeployEntry", async (res: PshEnvironmentItem) => {
+    vscode.commands.registerCommand("upsun-cli.nodes.envs.redeployEntry", async (res: PshEnvironmentItem) => {
         const [pshCli, ctx] = Tools.makeCliContext(context);
         const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
         await pshCli.executeObj(new RedeployCommand(currentCtx)).then(resultRaw => {
@@ -51,7 +51,7 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
         });
         pshCli.dispose();
     });
-    vscode.commands.registerCommand("psh-cli.nodes.envs.urlEntry", async (res: PshEnvironmentItem) => {
+    vscode.commands.registerCommand("upsun-cli.nodes.envs.urlEntry", async (res: PshEnvironmentItem) => {
         const [pshCli, ctx] = Tools.makeCliContext(context);
         const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
         await pshCli.executeObj(new UrlCommand(currentCtx)).then(resultRaw => {
@@ -66,7 +66,7 @@ export class PshEnvironmentItem extends vscode.TreeItem {
         private readonly context: vscode.ExtensionContext,
         public readonly item: PshEnvironment,
         public readonly isHighlight: boolean = false,
-      ) {
+    ) {
         super(item.id);
         this.contextValue = "environment";
 
@@ -94,7 +94,7 @@ export class PshEnvironmentItem extends vscode.TreeItem {
             `Type: ${this.item.type}\n` +
             `Created: ${this.item.created.toLocaleDateString()}\n` +
             `Update: ${this.item.updated.toLocaleDateString()}`;
-      }
+    }
 
 }
 
@@ -108,5 +108,11 @@ export class EnvsProvider extends ProviderBase<PshEnvironmentItem> {
 
         const [pshCli, ctx] = Tools.makeCliContext(this.vscontext);
         return pshCli.executeObj(new ListCommand(ctx));
+    }
+
+    refresh(): void {
+        super.refresh();
+        vscode.commands.executeCommand("upsun-cli.nodes.apps.refreshEntry");
+        vscode.commands.executeCommand("upsun-cli.nodes.rels.refreshEntry");
     }
 }

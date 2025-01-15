@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="uuid-7a81fc08-ca54-4fe3-9778-4c0465afcd0f"
+   viewBox="0 0 95 95"
+   version="1.1"
+   sodipodi:docname="upsun-icon-black.svg"
+   width="95"
+   height="95"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="5.86"
+     inkscape:cx="25.682594"
+     inkscape:cy="32.081911"
+     inkscape:window-width="1920"
+     inkscape:window-height="1020"
+     inkscape:window-x="1920"
+     inkscape:window-y="23"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="uuid-1bda0c99-7e8b-465a-9ee8-2e8f49cf3d6d" />
+  <g
+     id="uuid-1bda0c99-7e8b-465a-9ee8-2e8f49cf3d6d"
+     transform="matrix(0.11221246,0,0,0.11221246,8.168131,3.168131)">
+    <g
+       id="g4065"
+       transform="matrix(3.9211129,0,0,3.9211129,-237.54726,-191.84753)">
+      <path
+         d="m 150.06,96.59 c 29.55,0 53.44,23.95 53.44,53.44 h 53.44 C 256.94,90.99 209.09,43.09 150,43.09 90.91,43.09 43.06,90.94 43.06,150.03 H 96.5 c 0.12,-29.55 24.07,-53.44 53.56,-53.44 z"
+         id="path2"
+         style="fill:#d7dae0;fill-opacity:1" />
+      <path
+         d="m 168.18,200.3 c 20.6,-7.45 35.32,-27.13 35.32,-50.27 H 96.61 c 0,23.14 14.72,42.88 35.32,50.27 v 0.92 H 56.21 c 18.12,33.19 53.39,55.69 93.9,55.69 40.51,0 75.72,-22.51 93.9,-55.69 h -75.84 v -0.92 z"
+         id="path4"
+         style="fill:#d7dae0;fill-opacity:1" />
+    </g>
+  </g>
+</svg>

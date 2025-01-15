@@ -12,7 +12,7 @@ export async function registerApp(context: vscode.ExtensionContext) {
     console.debug(`Register App handler`);
 
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.app.list', async () => {
+        vscode.commands.registerCommand('upsun-cli.app.list', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new ListCommand(ctx)).then(resultRaw => {
                 console.debug(resultRaw);

@@ -1,56 +1,82 @@
 {
-  "name": "psh-cli",
-  "displayName": "Platform.sh Integration",
-  "description": "Front end to platform.sh CLI on Visual Studio Code ",
-  "version": "0.3.0",
+  "name": "upsun",
+  "displayName": "Upsun Integration",
+  "description": "Front end to Upsun CLI on Visual Studio Code!",
+  "version": "0.8.0",
+  "preview": true,
   "author": {
     "name": "Mickael GAILLARD",
     "url": "https://platform.sh"
   },
-  "publisher": "platform.sh",
-  "icon": "resources/images/pshext-logo.jpg",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "homepage": "https://github.com/upsun/vscode-upsun/blob/main/README.md",
+  "publisher": "upsun-vscode",
+  "icon": "resources/images/upsun-logo.png",
   "repository": {
-    "url": "https://lab.plat.farm/mickael.gaillard/vscode-psh-cli.git"
+    "type": "git",
+    "url": "https://github.com/upsun/vscode-upsun"
   },
+  "bugs": {
+    "url": "https://github.com/upsun/vscode-upsun/issues"
+  },
+  "qna": "https://github.com/upsun/vscode-upsun/issues",
   "engines": {
-    "vscode": "^1.66.0"
+    "vscode": "^1.94.0"
   },
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "Upsun",
+    "Platform.sh",
+    "Psh"
+  ],
+  "galleryBanner": {
+    "color": "#181619"
+  },
+  "sponsor": {
+    "url": "https://platform.sh"
+  },
   "activationEvents": [
   ],
   "main": "./out/extension.js",
   "contributes": {
     "viewsWelcome": [
       {
-        "view": "psh-cli.nodes.envs",
-        "contents": "No Platform.sh project found [learn more](https://platform.sh/).\n[Initialize project](command:todo.addEntry)"
+        "view": "upsun-cli.nodes.envs",
+        "contents": "Config upsun extenstion [learn more](https://upsun.com/).\n[Configure Upsun extension](command:upsun-cli.ext.setting)",
+        "when": "upsun-cli.token == empty"
+      },
+      {
+        "view": "upsun-cli.nodes.envs",
+        "contents": "No Upsun project found [learn more](https://upsun.com/).\n[Initialize project](command:todo.addEntry)",
+        "when": "upsun-cli.token != empty"
       }
     ],
 
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "psh-cli",
-          "title": "Platform.sh",
-          "icon": "resources/images/Platformsh_Icon_black_full.svg"
+          "id": "upsun-cli",
+          "title": "Upsun",
+          "icon": "resources/images/upsun-icon-black.svg"
+          
         }
       ]
     },
 
     "views": {
-      "psh-cli": [
+      "upsun-cli": [
         {
-          "id": "psh-cli.nodes.envs",
+          "id": "upsun-cli.nodes.envs",
           "name": "Environments"
         },
         {
-          "id": "psh-cli.nodes.apps",
+          "id": "upsun-cli.nodes.apps",
           "name": "Applications"
         },
         {
-          "id": "psh-cli.nodes.rels",
+          "id": "upsun-cli.nodes.rels",
           "name": "Relations"
         }
       ]
@@ -59,98 +85,120 @@
     "menus": {
       "view/title": [
         {
-          "command": "psh-cli.nodes.envs.refreshEntry",
-          "when": "view == psh-cli.nodes.envs",
+          "command": "upsun-cli.nodes.envs.refreshEntry",
+          "when": "view == upsun-cli.nodes.envs",
           "group": "navigation"
         },
         {
-          "command": "psh-cli.nodes.apps.refreshEntry",
-          "when": "view == psh-cli.nodes.apps",
+          "command": "upsun-cli.nodes.apps.refreshEntry",
+          "when": "view == upsun-cli.nodes.apps",
           "group": "navigation"
         },
         {
-          "command": "psh-cli.nodes.rels.refreshEntry",
-          "when": "view == psh-cli.nodes.rels",
+          "command": "upsun-cli.nodes.rels.refreshEntry",
+          "when": "view == upsun-cli.nodes.rels",
           "group": "navigation"
         }
       ],
 
       "view/item/context": [
         {
-          "command": "psh-cli.nodes.apps.sshEntry",
-          "when": "view == psh-cli.nodes.apps && viewItem =~ /^application.*$/"
+          "command": "upsun-cli.nodes.apps.sshEntry",
+          "when": "view == upsun-cli.nodes.apps && viewItem =~ /^application.*$/"
         },
         {
-          "command": "psh-cli.nodes.apps.logEntry",
-          "when": "view == psh-cli.nodes.apps && viewItem =~ /^application.*$/"
+          "command": "upsun-cli.nodes.apps.logEntry",
+          "when": "view == upsun-cli.nodes.apps && viewItem =~ /^application.*$/"
+        },
+
+        {
+          "command": "upsun-cli.nodes.envs.activateEntry",
+          "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment((?!active).)*$/"
         },
         {
-          "command": "psh-cli.nodes.envs.activateEntry",
-          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment((?!active).)*$/"
+          "command": "upsun-cli.nodes.envs.deactivateEntry",
+          "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
         },
         {
-          "command": "psh-cli.nodes.envs.deactivateEntry",
-          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
+          "command": "upsun-cli.nodes.envs.redeployEntry",
+          "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
         },
         {
-          "command": "psh-cli.nodes.envs.redeployEntry",
-          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
-        },
-        {
-          "command": "psh-cli.nodes.envs.urlEntry",
-          "when": "view == psh-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
+          "command": "upsun-cli.nodes.envs.urlEntry",
+          "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
         }
+
       ]
     },
 
     "commands": [
       {
-        "command": "psh-cli.app.list",
+        "command": "upsun-cli.ext.setting",
+        "title": "Upsun setting",
+        "category": "Upsun"
+      },
+      {
+        "command": "upsun-cli.ext.setting.token",
+        "title": "Upsun set Token",
+        "category": "Upsun"
+      },
+      {
+        "command": "upsun-cli.ext.install.cli",
+        "title": "Install upsun CLI",
+        "category": "Upsun"
+      },
+      {
+        "command": "upsun-cli.ext.site.user.create",
+        "title": "Create upsun user",
+        "category": "Upsun"
+      },
+      {
+        "command": "upsun-cli.app.list",
         "title": "Get a list of Applications",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.console.open",
+        "command": "upsun-cli.console.open",
         "title": "Open console",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:url",
+        "command": "upsun-cli.environment:url",
         "title": "Open web browser of the public URLs of an environment",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:ssh",
+        "command": "upsun-cli.environment:ssh",
         "title": "Open SSH to the current environment",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:activate",
+        "command": "upsun-cli.environment:activate",
         "title": "Activate current environment",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:deactivate",
+        "command": "upsun-cli.environment:deactivate",
         "title": "Deactivate current environment",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:logs",
+        "command": "upsun-cli.environment:logs",
         "title": "Display log of current environment",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:synchronize",
+        "command": "upsun-cli.environment:synchronize",
         "title": "Synchronize an environment's data from its parent",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.environment:list",
+        "command": "upsun-cli.environment:list",
         "title": "Get a list of environments",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
       {
-        "command": "psh-cli.nodes.apps.refreshEntry",
+        "command": "upsun-cli.nodes.apps.refreshEntry",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -158,15 +206,15 @@
         }
       },
       {
-        "command": "psh-cli.nodes.apps.sshEntry",
+        "command": "upsun-cli.nodes.apps.sshEntry",
         "title": "SSH"
       },
       {
-        "command": "psh-cli.nodes.apps.logEntry",
+        "command": "upsun-cli.nodes.apps.logEntry",
         "title": "Logs"
       },
       {
-        "command": "psh-cli.nodes.envs.refreshEntry",
+        "command": "upsun-cli.nodes.envs.refreshEntry",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -174,23 +222,23 @@
         }
       },
       {
-        "command": "psh-cli.nodes.envs.activateEntry",
+        "command": "upsun-cli.nodes.envs.activateEntry",
         "title": "Activate"
       },
       {
-        "command": "psh-cli.nodes.envs.deactivateEntry",
+        "command": "upsun-cli.nodes.envs.deactivateEntry",
         "title": "De-Activate"
       },
       {
-        "command": "psh-cli.nodes.envs.redeployEntry",
+        "command": "upsun-cli.nodes.envs.redeployEntry",
         "title": "Redeploy"
       },
       {
-        "command": "psh-cli.nodes.envs.urlEntry",
+        "command": "upsun-cli.nodes.envs.urlEntry",
         "title": "Open URL"
       },
       {
-        "command": "psh-cli.nodes.rels.refreshEntry",
+        "command": "upsun-cli.nodes.rels.refreshEntry",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -201,25 +249,82 @@
 
     "configuration": [
       {
-        "title": "Platform.sh CLI",
+        "title": "Upsun",
         "properties": {
-          "psh-cli.binaryPath": {
-            "title": "Platform.sh CLI binary path",
+          "upsun-cli.binaryPath": {
+            "title": "Upsun CLI binary path",
             "type": "string",
-            "default": "~/.platformsh/bin/platform",
-            "description": "Location of platform binary",
+            "default": "upsun",
+            "description": "Location of upsun binary",
             "scope": "resource"
           },
-          "psh-cli.token": {
-            "title": "Platform API Token",
-            "type": "string",
-            "default": "",
-            "description": "API token for platform.sh",
-            "scope": "resource"
+          "upsun-cli.token": {
+            "title": "Upsun API Token",
+            "type": "boolean",
+            "default": false,
+            "scope": "resource",
+            "markdownDescription": "API token for Upsun\n[Set Token](command:upsun-cli.ext.setting.token)"
           }
         }
       }
-    ]
+    ],
+
+    "walkthroughs": [
+			{
+				"id": "welcome",
+				"title": "Upsun Integration",
+        "icon": "",
+        "featuredFor": [],
+				"description": "How to use Upsun on VScode. You need to...",
+				"steps": [
+					{
+						"id": "install.cli",
+						"title": "Install upsun CLI",
+						"description": "This step will install a command line and check off once it has been run.\n[Install upsun CLI](command:upsun-cli.ext.install.cli)",
+						"media": {
+							"markdown": "resources/media/install/cli.md"
+						},
+						"completionEvents": [
+							"onCommand:upsun-cli.ext.install.cli"
+						]
+					},
+          {
+						"id": "site.user.create",
+						"title": "Create upsun account",
+						"description": "This step will create a user on upsun and check off once it has been run.\n[Create upsun user](command:upsun-cli.ext.site.user.create)",
+						"media": {
+							"markdown": "resources/media/user.create.md"
+						},
+						"completionEvents": [
+							"onCommand:upsun-cli.ext.site.user.create"
+						]
+					},
+					{
+						"id": "setting",
+						"title": "Change upsun Setting",
+						"description": "This step will change a setting and check off when the setting has changed\n[Change Setting](command:upsun-cli.ext.setting)",
+						"media": {
+							"markdown": "resources/media/setting.md"
+						},
+						"completionEvents": [
+							"onSettingChanged:upsun-cli.ext.setting"
+						]
+					},
+					{
+						"id": "install.addons",
+						"title": "Add addons for upsun",
+						"description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to upsun](command:upsun-cli.ext.install.addons.convsun)",
+						"media": {
+							"markdown": "resources/media/install/addons.md"
+						},
+						"completionEvents": [
+							"onContext:upsun-cli.ext.install.addons.clonsun",
+              "onContext:upsun-cli.ext.install.addons.convsun"
+						]
+					}
+				]
+			}
+		]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -236,7 +341,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/mocha": "^9.1.0",
     "@types/node": "14.x",
-    "@types/vscode": "^1.66.0",
+    "@types/vscode": "^1.75.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "@vscode/test-electron": "^2.1.3",

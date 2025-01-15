@@ -1,21 +1,21 @@
-# Platform.sh (CLI) extension
+# Upsun (CLI) extension
 
-Platform.sh is a fully-managed Platform as a Service (PaaS), which lets you deploy, scale web and API apps.
-Use Platform.sh's extension for VS Code to quickly manage your project at Platform.sh.
+Upsun is a fully-managed Platform as a Service (PaaS), which lets you deploy, scale web and API apps.
+Use Upsun's extension for VS Code to quickly manage your project at Upsun.
 
-Visit Platform.sh's [website](https://platform.sh/) for more information about the company.
+Visit Upsun's [website](https://upsun.com/) for more information about the company.
 
 ## Features
 
 - Open public URLs of defined routes
-- Open Platform.sh console
+- Open Upsun console
 - Open SSH session
 
 ## Requirements
 
-1. To use this extensions you need to [install Platform's CLI](https://docs.platform.sh/development/cli.html#1-install)
-2. Install Platform.sh's CLI extension for Visual Studio Code
-3. Configure binary path to Platform.sh's CLI
+1. To use this extensions you need to [install Upsun's CLI](https://docs.upsun.com/development/cli.html#1-install)
+2. Install Upsun's CLI extension for Visual Studio Code
+3. Configure binary path to Upsun's CLI
 
 ## Building locally
 
@@ -24,7 +24,7 @@ npm install
 ./scripts/package_make.sh
 ```
 
-Which should output dist/psh-cli-x.x.x.vsix that you can locally install
+Which should output dist/upsun-cli-x.x.x.vsix that you can locally install
 
 
 ## Release Notes
@@ -39,5 +39,5 @@ Add views of Environment, Applications & Relationship.
 
 Initial release of PSH-cli.
 - Open web site URL
-- Open Platform.sh console
+- Open Upsun console
 - Open SSH terminal

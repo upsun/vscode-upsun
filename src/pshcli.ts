@@ -5,7 +5,8 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as util from 'util';
-import { PshCommand } from './command/base';
+import { PshContextCommand } from './command/base';
+import { PshStorage } from './pshstore';
 
 const exec = util.promisify(require('child_process').exec);
 const PSH_CLI_HOME = 'psh-vsc';
@@ -24,18 +25,20 @@ export class PshCli {
         // }
     }
 
-    public async executeObj(command: PshCommand) : Promise<any> {
+    public async executeObj(command: PshContextCommand) : Promise<any> {
         let raw: any = null;
+        const token = await (new PshStorage(command.context.vscontext!)).getToken() || '';
+
         if (command.isCli()) {
             await vscode.window.withProgress({
                 cancellable: false,
                 location: vscode.ProgressLocation.Notification,
-                title: 'Platform.sh',
+                title: 'Upsun',
                 } as vscode.ProgressOptions, async (progress) => {
                     progress.report({
-                         message: command.displayMessage(),
+                        message: command.displayMessage(),
                     });
-                    raw = await this.executeStr(`${command}`);
+                    raw = await this.executeStr(`${command}`, token);
                 });
         }
         const param = command.convert(raw);
@@ -44,14 +47,15 @@ export class PshCli {
         return result;
     }
 
-    public async executeStr(command: string) : Promise<string> {
+    public async executeStr(command: string, pshKey: string = '') : Promise<string> {
         let result = 'no command run';
-        const pshBin = vscode.workspace.getConfiguration().get('psh-cli.binaryPath');
-        const pshKey = vscode.workspace.getConfiguration().get('psh-cli.token');
+        const pshBin = vscode.workspace.getConfiguration().get('upsun-cli.binaryPath');
 
         const options = {
             env: {
                 ...process.env,
+                'UPSUN_CLI_TOKEN': pshKey,
+                'UPSUN_CLI_HOME': this.tmpDir,
                 'PLATFORMSH_CLI_TOKEN': pshKey,
                 'PLATFORMSH_CLI_HOME': this.tmpDir
             }

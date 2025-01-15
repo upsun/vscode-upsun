@@ -23,13 +23,13 @@ export class SshCommand extends PshContextCommand {
     }
 
     async process(param: any): Promise<any> {
-        const title = `psh - ssh : ${this.context.environment} > ${this.app}`;
+        const title = `Upsun - ssh : ${this.context.environment} > ${this.app}`;
         let term = vscode.window.terminals.find( (x) => {
             return x.name === title;
         });
 
         if (!term) {
-            const pshBin = vscode.workspace.getConfiguration().get('psh-cli.binaryPath');
+            const pshBin = vscode.workspace.getConfiguration().get('upsun-cli.binaryPath');
             let cmd = `${pshBin} ${CLI_CMD} ${this.context}`;
 
             if (this.app) {

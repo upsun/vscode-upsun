@@ -1,8 +1,13 @@
 import { assert } from 'chai';
-import { PshCommand } from '../../command/base';
+import { PshContext, PshContextCommand } from '../../command/base';
 import { PshCli } from '../../pshcli';
 
-class MockCommand extends PshCommand {
+class MockCommand extends PshContextCommand {
+
+    constructor() {
+        super(new PshContext('', '', null));
+    }
+
     displayMessage(): string {
         throw new Error('Method not implemented.');
     }

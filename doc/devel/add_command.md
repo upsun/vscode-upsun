@@ -40,7 +40,7 @@ Edit the register of the subject (eg. environment:*) on `src/command/<subject>/r
 and append in `register<Subject>` funtion this content:
 ```ts
     context.subscriptions.push(
-        vscode.commands.registerCommand('psh-cli.<subject>:<command_name>', async () => {
+        vscode.commands.registerCommand('upsun-cli.<subject>:<command_name>', async () => {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             await pshCli.executeObj(new <Command_name>Command(ctx, true)).then(
                 // Post-process (can be call another command)
@@ -54,17 +54,13 @@ and append in `register<Subject>` funtion this content:
 ## Declare registered command.
 On `package.json`, 
 
-add into section `activationEvents`.
-```js
-    "onCommand:psh-cli.<subject>:<command_name>",
-```
 
 add into section `contributes.command`
 ```js
       {
-        "command": "psh-cli.<subject>:<command_name>",
+        "command": "upsun-cli.<subject>:<command_name>",
         "title": "title_here",
-        "category": "Platform.sh"
+        "category": "Upsun"
       },
 ```
 

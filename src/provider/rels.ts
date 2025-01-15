@@ -8,8 +8,8 @@ import { PshStorage } from '../pshstore';
 export function registerViewRelationship(context: vscode.ExtensionContext) {
     Tools.registerTreeview(
         new RelsProvider(Tools.getRootPath(), context),
-        'psh-cli.nodes.rels',
-        'psh-cli.nodes.rels.refreshEntry'
+        'upsun-cli.nodes.rels',
+        'upsun-cli.nodes.rels.refreshEntry'
     );
 }
 
@@ -17,7 +17,7 @@ export class PshRelationshipItem extends vscode.TreeItem {
     constructor(
         private readonly context: vscode.ExtensionContext,
         private readonly item: PshRelationships
-      ) {
+    ) {
         super(item.id);
         this.contextValue = 'relationship';
 
@@ -27,7 +27,7 @@ export class PshRelationshipItem extends vscode.TreeItem {
         };
         this.description = `${this.item.type}:${this.item.version} `;
         this.tooltip = this.item.machine;
-      }
+    }
 }
 
 export class RelsProvider extends ProviderBase<PshRelationshipItem> {
@@ -41,7 +41,7 @@ export class RelsProvider extends ProviderBase<PshRelationshipItem> {
         }
 
         if (!defaultApp) {
-            vscode.window.showInformationMessage('No app found.');
+            vscode.window.showInformationMessage('No relation found.');
             return Promise.resolve([]);
         }
 

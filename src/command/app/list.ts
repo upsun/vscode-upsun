@@ -41,29 +41,29 @@ export class ListCommand extends PshSelectorContextCommand {
 
         //if (this.isTreeItem) {
             const items = [];
-            let pos = 0;
-            let found = false;
+            // let pos = 0;
+            // let found = false;
             const store = new PshStorage(this.context.vscontext as vscode.ExtensionContext);
             const vsctx = this.context.vscontext as vscode.ExtensionContext;
-            const defaultApp = await store.getDefaultApp();
+            // const defaultApp = await store.getDefaultApp();
 
             for(var app of param) {
-                let isActive = (defaultApp === app.name);
-                if (defaultApp === null && pos === 0) {
-                    isActive = true;
-                    await store.setDefaultApp(app.name);
-                }
-                if (isActive) {
-                    found = true;
-                }
+                let isActive = false; // (defaultApp === app.name);
+                // if (defaultApp === null && pos === 0) {
+                //     isActive = true;
+                //     await store.setDefaultApp(app.name);
+                // }
+                // if (isActive) {
+                //     found = true;
+                // }
                 const item = new PshApplicationItem(vsctx, app, isActive);
                 items.push(item);
-                pos += 1;  //TODO: remove this monster.
+                // pos += 1;  //TODO: remove this monster.
             }
 
-            if (!found) {
-                await store.resetDefaultApp();
-            }
+            // if (!found) {
+            await store.resetDefaultApp();
+            // }
 
             return items;
         //}

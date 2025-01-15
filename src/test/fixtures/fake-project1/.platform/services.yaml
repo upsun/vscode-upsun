@@ -1,3 +1,0 @@
-
-sqldb:
-    type: mysql:10.5

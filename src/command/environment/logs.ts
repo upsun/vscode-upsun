@@ -30,7 +30,7 @@ export class LogsCommand extends PshContextCommand {
         });
 
         if (!term) {
-            const pshBin = vscode.workspace.getConfiguration().get('psh-cli.binaryPath');
+            const pshBin = vscode.workspace.getConfiguration().get('upsun-cli.binaryPath');
             let cmd = `${pshBin} ${CLI_CMD} --lines 100 --tail ${this.context}`;
 
             if (this.app) {

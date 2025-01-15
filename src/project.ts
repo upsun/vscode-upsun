@@ -5,7 +5,7 @@ import { PshContext } from "./command/base";
 import { GitManager } from "./gitmanager";
 import { ProviderBase } from './provider/common';
 import { PshCli } from './pshcli';
-import { PshConfig } from "./pshconfig";
+import { ConfigBase, ConfigFactory, PshConfig } from "./pshconfig";
 
 export abstract class Tools {
 
@@ -26,28 +26,28 @@ export abstract class Tools {
     static makeContext(vscontext: vscode.ExtensionContext|null|undefined) {
         const rootPath = Tools.getRootPath();
 
-        let pshConfig, branch;
+        let config: ConfigBase | undefined, branch: string | undefined;
         if (rootPath) {
-            pshConfig = new PshConfig(rootPath);
+            config = ConfigFactory.createConfig(rootPath);
 
             const gitManager = new GitManager();
             branch = gitManager.currentBranch();
         }
 
-        return new PshContext(pshConfig?.pshProjectId, branch, vscontext);
+        return new PshContext(config?.projectId, branch, vscontext);
     }
 
     static makeCliContext(vscontext: vscode.ExtensionContext|null|undefined) {
-        const ctx = Tools.makeContext(vscontext);
+        const uctx = Tools.makeContext(vscontext);
         const pshCli = new PshCli();
 
-        return [pshCli, ctx] as const;
+        return [pshCli, uctx] as const;
     }
 
     static registerTreeview(
         provider: ProviderBase<any>,
         treeviewName: string,
-        refreshName: string|null|undefined) {
+        refreshName: string|null|undefined): vscode.TreeView<any> {
 
         vscode.window.registerTreeDataProvider(
             treeviewName,
@@ -59,5 +59,12 @@ export abstract class Tools {
                 provider.refresh()
             );
         }
+
+        const options = {
+            treeDataProvider: provider,
+            showCollapseAll: false
+        };
+        const tree = vscode.window.createTreeView(treeviewName, options);
+        return tree;
     }
 }

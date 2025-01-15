@@ -8,28 +8,34 @@ import { LogsCommand } from '../command/environment/logs';
 import { PshStorage } from '../pshstore';
 
 export function registerViewApplication(context: vscode.ExtensionContext) {
-    Tools.registerTreeview(
-        new AppsProvider(Tools.getRootPath(), context),
-        'psh-cli.nodes.apps',
-        'psh-cli.nodes.apps.refreshEntry'
+    const provider = new AppsProvider(Tools.getRootPath(), context);
+    const tree = Tools.registerTreeview(
+        provider,
+        'upsun-cli.nodes.apps',
+        'upsun-cli.nodes.apps.refreshEntry'
     );
 
-    vscode.commands.registerCommand("psh-cli.nodes.apps.sshEntry", async (res: PshApplicationItem) => {
+    tree.onDidChangeSelection(e => {
+        if (e.selection.length > 0) {
+            console.debug(`slected : ${e.selection[0]}`);
+            new PshStorage(context).setDefaultApp(e.selection[0].item.name);
+            vscode.commands.executeCommand("upsun-cli.nodes.rels.refreshEntry");
+        }
+    });
+
+    vscode.commands.registerCommand("upsun-cli.nodes.apps.sshEntry", async (res: PshApplicationItem) => {
         const [pshCli, ctx] = Tools.makeCliContext(context);
         await pshCli.executeObj(new SshCommand(ctx, res.item.name)).then(resultRaw => {
             console.debug(resultRaw);
         });
         pshCli.dispose();
     });
-    vscode.commands.registerCommand("psh-cli.nodes.apps.logEntry", async (res: PshApplicationItem) => {
+    vscode.commands.registerCommand("upsun-cli.nodes.apps.logEntry", async (res: PshApplicationItem) => {
         const [pshCli, ctx] = Tools.makeCliContext(context);
         await pshCli.executeObj(new LogsCommand(ctx, res.item.name)).then(resultRaw => {
             console.debug(resultRaw);
         });
         pshCli.dispose();
-    });
-    vscode.commands.registerCommand("psh-cli.nodes.apps.defaultEntry", async (res: PshApplicationItem) => {
-        new PshStorage(context).setDefaultApp(res.item.name);
     });
 }
 
@@ -38,14 +44,14 @@ export class PshApplicationItem extends vscode.TreeItem {
         private readonly context: vscode.ExtensionContext,
         public readonly item: PshApplication,
         public readonly isHighlight: boolean = false,
-      ) {
+    ) {
         super(item.name);
         this.contextValue = 'application';
 
         // Is current
-        if (this.isHighlight){
-            this.label = { label: item.name, highlights: [[0, item.name.length]]} as vscode.TreeItemLabel;
-        }
+        // if (this.isHighlight){
+        //     this.label = { label: item.name, highlights: [[0, item.name.length]]} as vscode.TreeItemLabel;
+        // }
 
         const typeSplitted = this.item.type.toLowerCase().split(':');
         const typeName = typeSplitted[0];
@@ -61,19 +67,24 @@ export class PshApplicationItem extends vscode.TreeItem {
             `Name: ${this.item.name}\n` +
             `Language: ${typeName}\n` +
             `Version: ${typeVersion}`;
-      }
+    }
 
 }
 
 export class AppsProvider extends ProviderBase<PshApplicationItem> {
 
     getChildren(element?: PshApplicationItem): vscode.ProviderResult<PshApplicationItem[]> {
-        if (!this.workspaceRoot) {
+        if (!this.workspaceRoot /* //TODO check if env exist! */) {
             vscode.window.showInformationMessage('No dependency in empty workspace');
             return Promise.resolve([]);
         }
 
         const [pshCli, ctx] = Tools.makeCliContext(this.vscontext);
         return pshCli.executeObj(new ListCommand(ctx));
+    }
+
+    refresh(): void {
+        super.refresh();
+        vscode.commands.executeCommand("upsun-cli.nodes.rels.refreshEntry");
     }
 }

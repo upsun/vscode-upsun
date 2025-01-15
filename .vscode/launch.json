@@ -9,10 +9,27 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run Extension",
+			"name": "Run Extension - upsun fixture",
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
+				"${workspaceFolder}/src/test/fixtures/fake-",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--disable-extensions"
+			],
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
+			"preLaunchTask": "${defaultBuildTask}"
+		},
+		{
+			"name": "Run Extension - upsun Ext",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				//"/home/micky/Platform.sh/project/test/test-buildwithdeps2",
+				//"/home/micky/Platform.sh/project/Internal _ ADV-Tools/adv/FastlyUISun/FastSun",
+				"/home/micky/Platform.sh/project/Internal _ ADV-Tools/tmp/prod-maap-audit",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--disable-extensions"
 			],
@@ -27,7 +44,7 @@
 			"request": "launch",
             "runtimeExecutable": "${execPath}",
 			"args": [
-                "${workspaceFolder}/src/test/fixtures/fake-project1",
+                "${workspaceFolder}/src/test/fixtures/fake-psh",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index",
 				"--disable-extensions",

@@ -1,11 +1,12 @@
 import * as vscode from 'vscode';
 
-import { registerApp } from './command/app/register';
-import { registerConsole } from './command/console/register';
-import { registerEnvironment } from './command/environment/register';
+import { registerApp }          from './command/app/register';
+import { registerConsole }      from './command/console/register';
+import { registerEnvironment }  from './command/environment/register';
+import { registerGlobal }       from './command/global/extension';
 
-import { registerViewApplication } from './provider/apps';
-import { registerViewEnvironment } from './provider/envs';
+import { registerViewApplication }  from './provider/apps';
+import { registerViewEnvironment }  from './provider/envs';
 import { registerViewRelationship } from './provider/rels';
 
 
@@ -14,6 +15,8 @@ export async function activate(context: vscode.ExtensionContext) {
     (global as any).testExtensionContext = context;
 
     // Get Global config
+    registerGlobal(context);
+
     registerApp(context);
     registerConsole(context);
     registerEnvironment(context);
