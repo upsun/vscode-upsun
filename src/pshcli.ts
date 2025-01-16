@@ -7,6 +7,7 @@ import * as path from 'path';
 import * as util from 'util';
 import { PshContextCommand } from './command/base';
 import { PshStorage } from './pshstore';
+import { KEY_CLI_PATH } from './constants/extension';
 
 const exec = util.promisify(require('child_process').exec);
 const PSH_CLI_HOME = 'psh-vsc';
@@ -49,7 +50,7 @@ export class PshCli {
 
     public async executeStr(command: string, pshKey: string = '') : Promise<string> {
         let result = 'no command run';
-        const pshBin = vscode.workspace.getConfiguration().get('upsun-cli.binaryPath');
+        const pshBin = vscode.workspace.getConfiguration().get(KEY_CLI_PATH);
 
         const options = {
             env: {
@@ -61,8 +62,8 @@ export class PshCli {
             }
         };
 
-        const fullCmd = `${pshBin}  ${command}`;
-        console.debug(`Command : ${fullCmd}`);
+        const fullCmd = `${pshBin} ${command}`;
+        console.debug(`CLI Command : ${fullCmd}`);
         const {err, stdout, stderr} = await exec(fullCmd, options);
 
         if (err) {
@@ -70,7 +71,7 @@ export class PshCli {
             console.error('stderr:\n' + stderr);
             result = stderr;
         } else {
-            console.debug('stdout:\n' + stdout);
+            console.debug('CLI stdout:\n' + stdout);
             result = stdout;
         }
 
@@ -84,7 +85,7 @@ export class PshCli {
             }
         }
         catch (e) {
-            console.error(`An error has occurred while removing the temp folder at ${this.tmpDir}. Please remove it manually. Error: ${e}`);
+            console.error(`CLI An error has occurred while removing the temp folder at ${this.tmpDir}. Please remove it manually. Error: ${e}`);
         }
     }
 }

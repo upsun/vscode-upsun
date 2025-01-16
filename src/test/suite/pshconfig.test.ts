@@ -1,29 +1,17 @@
 import { assert } from 'chai';
 import * as path from 'path';
-import { PshConfig } from '../../pshconfig';
+import { ConfigBase, ConfigFactory } from '../../pshconfig';
 
-const testPath1 = path.resolve(__dirname, '../../../src/test/fixtures/fake-project1/');
+const testPathPsh = path.resolve(__dirname, '../../../src/test/fixtures/fake-project1/');
 
 suite('PshConfig Test Suite', () => {
-    let config: PshConfig;
+    let config: ConfigBase;
 
     setup(() => {
-        config = new PshConfig(testPath1);
+        config = ConfigFactory.createConfig(testPathPsh);
     });
 
     test('PshConfig.pshProjectId', () => {
         assert.equal(config.projectId, '6q5ffgcj3ieeo');
-    });
-
-    test('PshConfig.pshHost', () => {
-        assert.strictEqual(config.host, 'eu-1.platform.sh');
-    });
-
-    test('PshConfig.pshRoutes', () => {
-        assert.isDefined(config.pshRoutes);
-    });
-
-    test('PshConfig.pshServices', () => {
-        assert.isDefined(config.pshServices);
     });
 });

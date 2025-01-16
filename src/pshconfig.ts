@@ -4,26 +4,28 @@ import * as path from 'path';
 import * as fs  from 'fs';
 import { load } from "js-yaml";
 
-const PSH_FOLDER = '.platform';
-const PSH_LOCAL = 'local/project.yaml';
-const PSH_ROUTES = 'routes.yaml';
-const PSH_SERVICES = 'services.yaml';
-
-const UPS_FOLDER = '.upsun';
-const UPS_CONFIG = 'config.yaml';
-const UPS_LOCAL = PSH_LOCAL;
+const PSH_FOLDER = 'platform';
+const UPS_FOLDER = 'upsun';
+const LOCAL_PATH = 'local/project.yaml';
 
 
+function getPrivatePath(folder: string): string {
+    return `.${folder}`;
+}
+
+/**
+ * Configuration factory.
+ */
 export abstract class ConfigFactory{
 
     static createConfig(root: string): ConfigBase {
         let result = null;
 
-        if (fs.existsSync(path.join(root, PSH_FOLDER))) {
+        if (fs.existsSync(path.join(root, getPrivatePath(PSH_FOLDER)))) {
             result = new PshConfig(root);
         }
 
-        else if (fs.existsSync(path.join(root, UPS_FOLDER))) {
+        else if (fs.existsSync(path.join(root, getPrivatePath(UPS_FOLDER)))) {
             result = new UpsConfig(root);
         }
 
@@ -32,52 +34,36 @@ export abstract class ConfigFactory{
 
 }
 
+/**
+ * Common configuration.
+ */
 export abstract class ConfigBase {
-    folder!: string;
-    projectId!: string;
-    local!: unknown;
-    host!: string;
-    cliProvider!: string;
+    readonly folder!: string;
+    readonly projectId!: string;
+    readonly local!: unknown;
 
-    loadLocal() : void {
+    constructor(private readonly root: string, private readonly cliProvider: string) {
+        this.folder = path.join(this.root, getPrivatePath(this.cliProvider));
+        console.debug(`Config Project Folder : ${this.folder}`);
+
+        this.local = load(fs.readFileSync(path.join(this.folder, LOCAL_PATH), "utf8"));
+
         this.projectId = (this.local as any).id.toString();
-        console.debug(`Project ID : ${this.projectId}`);
-
-        this.host = (this.local as any).host;
-        console.debug(`Project Host : ${this.host}`);
+        console.debug(`Config Project ID : ${this.projectId}`);
     }
 }
 
-export class PshConfig extends ConfigBase {
-    readonly pshRoutes: any;
-    readonly pshServices: any;
-
-    constructor(root: string) {
-        super();
-        this.cliProvider = 'platform';
-
-        this.folder = path.join(root, PSH_FOLDER);
-        console.debug(`Project Folder : ${this.folder}`);
-
-        this.local = load(fs.readFileSync(path.join(this.folder, PSH_LOCAL), "utf8"));
-        this.loadLocal();
-
-        this.pshRoutes = load(fs.readFileSync(path.join(this.folder, PSH_ROUTES), "utf8"));
-        this.pshServices = load(fs.readFileSync(path.join(this.folder, PSH_SERVICES), "utf8"));
-    }
+/**
+ * Platform.sh configuration.
+ */
+class PshConfig extends ConfigBase {
+    constructor(root: string) { super(root, PSH_FOLDER); }
 }
 
+/**
+ * Upsun configuration.
+ */
 export class UpsConfig extends ConfigBase {
-
-    constructor(root: string) {
-        super();
-        this.cliProvider = 'upsun';
-        
-        this.folder = path.join(root, UPS_FOLDER);
-        console.debug(`Project Folder : ${this.folder}`);
-
-        this.local = load(fs.readFileSync(path.join(this.folder, UPS_LOCAL), "utf8"));
-        this.loadLocal();
-    }
+    constructor(root: string) { super(root, UPS_FOLDER); }
 
 }

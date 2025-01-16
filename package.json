@@ -85,17 +85,17 @@
     "menus": {
       "view/title": [
         {
-          "command": "upsun-cli.nodes.envs.refreshEntry",
+          "command": "upsun-cli.nodes.envs.refresh",
           "when": "view == upsun-cli.nodes.envs",
           "group": "navigation"
         },
         {
-          "command": "upsun-cli.nodes.apps.refreshEntry",
+          "command": "upsun-cli.nodes.apps.refresh",
           "when": "view == upsun-cli.nodes.apps",
           "group": "navigation"
         },
         {
-          "command": "upsun-cli.nodes.rels.refreshEntry",
+          "command": "upsun-cli.nodes.rels.refresh",
           "when": "view == upsun-cli.nodes.rels",
           "group": "navigation"
         }
@@ -153,12 +153,12 @@
         "category": "Upsun"
       },
       {
-        "command": "upsun-cli.app.list",
-        "title": "Get a list of Applications",
+        "command": "upsun-cli.ext.addons.fastsun",
+        "title": "Launch FastSun",
         "category": "Upsun"
       },
       {
-        "command": "upsun-cli.console.open",
+        "command": "upsun-cli.project.console.open",
         "title": "Open console",
         "category": "Upsun"
       },
@@ -193,12 +193,7 @@
         "category": "Upsun"
       },
       {
-        "command": "upsun-cli.environment:list",
-        "title": "Get a list of environments",
-        "category": "Upsun"
-      },
-      {
-        "command": "upsun-cli.nodes.apps.refreshEntry",
+        "command": "upsun-cli.nodes.apps.refresh",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -214,7 +209,7 @@
         "title": "Logs"
       },
       {
-        "command": "upsun-cli.nodes.envs.refreshEntry",
+        "command": "upsun-cli.nodes.envs.refresh",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",
@@ -238,7 +233,7 @@
         "title": "Open URL"
       },
       {
-        "command": "upsun-cli.nodes.rels.refreshEntry",
+        "command": "upsun-cli.nodes.rels.refresh",
         "title": "Refresh",
         "icon": {
           "light": "resources/light/refresh.svg",

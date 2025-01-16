@@ -5,7 +5,7 @@ import { PshContext } from "./command/base";
 import { GitManager } from "./gitmanager";
 import { ProviderBase } from './provider/common';
 import { PshCli } from './pshcli';
-import { ConfigBase, ConfigFactory, PshConfig } from "./pshconfig";
+import { ConfigBase, ConfigFactory } from "./pshconfig";
 
 export abstract class Tools {
 
@@ -15,9 +15,9 @@ export abstract class Tools {
         // Replace deprecated : vscode.workspace.rootPath
         if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
             rootPath = vscode.workspace.workspaceFolders[0].uri.path;
-            console.debug(`Root Path : ${rootPath}`);
+            console.debug(`Tools Root Path : ${rootPath}`);
         } else {
-            console.debug('No Workspace to load !');
+            console.debug('Tools no workspace to load !');
         }
 
         return rootPath;

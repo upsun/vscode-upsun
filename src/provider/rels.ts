@@ -4,12 +4,20 @@ import { Tools } from '../project';
 import { ProviderBase } from './common';
 import { PshRelationships, RelationshipsCommand } from '../command/environment/relationships';
 import { PshStorage } from '../pshstore';
+import {
+    URI_NODE_RELATION,
+    URI_NODE_RELATION_REFRESH
+} from '../constants/rels';
+
+const COMPONENT_CTX = 'relationship';
 
 export function registerViewRelationship(context: vscode.ExtensionContext) {
+    console.debug(`Register Relationship View handler`);
+
     Tools.registerTreeview(
         new RelsProvider(Tools.getRootPath(), context),
-        'upsun-cli.nodes.rels',
-        'upsun-cli.nodes.rels.refreshEntry'
+        URI_NODE_RELATION,
+        URI_NODE_RELATION_REFRESH
     );
 }
 
@@ -19,7 +27,7 @@ export class PshRelationshipItem extends vscode.TreeItem {
         private readonly item: PshRelationships
     ) {
         super(item.id);
-        this.contextValue = 'relationship';
+        this.contextValue = COMPONENT_CTX;
 
         this.iconPath = {
             light: this.context.asAbsolutePath(path.join('resources', 'logo', `${this.item.type}.png`)),
@@ -33,8 +41,9 @@ export class PshRelationshipItem extends vscode.TreeItem {
 export class RelsProvider extends ProviderBase<PshRelationshipItem> {
 
     getChildren(element?: PshRelationshipItem): vscode.ProviderResult<PshRelationshipItem[]> {
-        const defaultApp = new PshStorage(this.vscontext).getDefaultApp();
+        console.debug(`Run ${URI_NODE_RELATION} provider load`);
 
+        const defaultApp = new PshStorage(this.vscontext).getDefaultApp();
         if (!this.workspaceRoot) {
             vscode.window.showInformationMessage('No dependency in empty workspace.');
             return Promise.resolve([]);

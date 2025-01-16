@@ -2,6 +2,8 @@
 
 import * as vscode from 'vscode';
 import { PshContext, PshContextCommand } from "../base";
+import { KEY_CLI_PATH } from '../../constants/extension';
+import { PshStorage } from '../../pshstore';
 
 const LOGS_LINES = 100;
 
@@ -23,21 +25,33 @@ export class LogsCommand extends PshContextCommand {
         return '';
     }
 
-    process(param: any): any {
-        const title = `psh - log : ${this.context.environment} > ${this.app}`;
+    async process(param: any): Promise<any> {
+        const title = `Upsun - log : ${this.context.environment} > ${this.app}`;
         let term = vscode.window.terminals.find( (x) => {
             return x.name === title;
         });
 
         if (!term) {
-            const pshBin = vscode.workspace.getConfiguration().get('upsun-cli.binaryPath');
+            const pshBin = vscode.workspace.getConfiguration().get(KEY_CLI_PATH);
             let cmd = `${pshBin} ${CLI_CMD} --lines 100 --tail ${this.context}`;
 
             if (this.app) {
                 cmd += ` -A ${this.app}`;
             }
 
-            term = vscode.window.createTerminal(title);
+            const token = await (new PshStorage(this.context.vscontext!)).getToken() || '';
+            const options: vscode.TerminalOptions = {
+                name: title,
+                env: {
+                    ...process.env,
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'UPSUN_CLI_TOKEN': token,
+                    // eslint-disable-next-line @typescript-eslint/naming-convention
+                    'PLATFORMSH_CLI_TOKEN': token,
+                }
+            };
+
+            term = vscode.window.createTerminal(options);
             term.sendText(`${cmd} ; exit > /dev/null`);
         }
         term.show();

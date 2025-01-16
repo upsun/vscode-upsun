@@ -12,7 +12,7 @@ export class ListCommand extends PshSelectorContextCommand {
     }
 
     prepare(): string {
-        return `${CLI_CMD} --format=csv --no-header --columns=id,machine_name,title,status,type,created,updated  ${this.context.projectParameter()}`;
+        return `${CLI_CMD} --format=csv --no-header --columns=id,machine_name,title,status,type,created,updated ${this.context.projectParameter()}`;
     }
 
     convert(raw: string): any {

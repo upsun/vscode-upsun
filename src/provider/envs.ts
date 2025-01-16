@@ -8,16 +8,32 @@ import { PshContext } from '../command/base';
 import { ActivateCommand } from '../command/environment/activate';
 import { DeactivateCommand } from '../command/environment/deactivate';
 import { RedeployCommand } from '../command/environment/redeploy';
+import { URI_NODE_APPLICATION_REFRESH } from '../constants/apps';
+import { URI_NODE_RELATION_REFRESH } from '../constants/rels';
+import {
+    URI_NODE_ENVIRONMENT,
+    URI_NODE_ENVIRONMENT_ACTIVATE,
+    URI_NODE_ENVIRONMENT_DESACTIVATE,
+    URI_NODE_ENVIRONMENT_REDEPLOY,
+    URI_NODE_ENVIRONMENT_REFRESH,
+    URI_NODE_ENVIRONMENT_URL
+} from '../constants/envs';
+
+const COMPONENT_CTX = 'environment';
 
 export function registerViewEnvironment(context: vscode.ExtensionContext) {
+    console.debug(`Register Environment View handler`);
+
     const provider = new EnvsProvider(Tools.getRootPath(), context);
     Tools.registerTreeview(
         provider,
-        'upsun-cli.nodes.envs',
-        'upsun-cli.nodes.envs.refreshEntry'
+        URI_NODE_ENVIRONMENT,
+        URI_NODE_ENVIRONMENT_REFRESH
     );
 
-    vscode.commands.registerCommand("upsun-cli.nodes.envs.activateEntry", async (res: PshEnvironmentItem) => {
+    vscode.commands.registerCommand(URI_NODE_ENVIRONMENT_ACTIVATE, async (res: PshEnvironmentItem) => {
+        console.debug(`Run ${URI_NODE_ENVIRONMENT_ACTIVATE}`);
+
         try {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
@@ -30,7 +46,10 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
             provider.refresh();
         }
     });
-    vscode.commands.registerCommand("upsun-cli.nodes.envs.deactivateEntry", async (res: PshEnvironmentItem) => {
+
+    vscode.commands.registerCommand(URI_NODE_ENVIRONMENT_DESACTIVATE, async (res: PshEnvironmentItem) => {
+        console.debug(`Run ${URI_NODE_ENVIRONMENT_DESACTIVATE}`);
+
         try {
             const [pshCli, ctx] = Tools.makeCliContext(context);
             const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
@@ -43,7 +62,10 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
             provider.refresh();
         }
     });
-    vscode.commands.registerCommand("upsun-cli.nodes.envs.redeployEntry", async (res: PshEnvironmentItem) => {
+
+    vscode.commands.registerCommand(URI_NODE_ENVIRONMENT_REDEPLOY, async (res: PshEnvironmentItem) => {
+        console.debug(`Run ${URI_NODE_ENVIRONMENT_REDEPLOY}`);
+
         const [pshCli, ctx] = Tools.makeCliContext(context);
         const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
         await pshCli.executeObj(new RedeployCommand(currentCtx)).then(resultRaw => {
@@ -51,7 +73,10 @@ export function registerViewEnvironment(context: vscode.ExtensionContext) {
         });
         pshCli.dispose();
     });
-    vscode.commands.registerCommand("upsun-cli.nodes.envs.urlEntry", async (res: PshEnvironmentItem) => {
+
+    vscode.commands.registerCommand(URI_NODE_ENVIRONMENT_URL, async (res: PshEnvironmentItem) => {
+        console.debug(`Run ${URI_NODE_ENVIRONMENT_URL}`);
+
         const [pshCli, ctx] = Tools.makeCliContext(context);
         const currentCtx = new PshContext(ctx.projectId, res.item.id, context);
         await pshCli.executeObj(new UrlCommand(currentCtx)).then(resultRaw => {
@@ -68,7 +93,7 @@ export class PshEnvironmentItem extends vscode.TreeItem {
         public readonly isHighlight: boolean = false,
     ) {
         super(item.id);
-        this.contextValue = "environment";
+        this.contextValue = COMPONENT_CTX;
 
         // Is current
         if (this.isHighlight){
@@ -101,6 +126,8 @@ export class PshEnvironmentItem extends vscode.TreeItem {
 export class EnvsProvider extends ProviderBase<PshEnvironmentItem> {
 
     getChildren(element?: PshEnvironmentItem): vscode.ProviderResult<PshEnvironmentItem[]> {
+        console.debug(`Run ${URI_NODE_ENVIRONMENT} provider load`);
+
         if (!this.workspaceRoot) {
             vscode.window.showInformationMessage('No dependency in empty workspace');
             return Promise.resolve([]);
@@ -112,7 +139,7 @@ export class EnvsProvider extends ProviderBase<PshEnvironmentItem> {
 
     refresh(): void {
         super.refresh();
-        vscode.commands.executeCommand("upsun-cli.nodes.apps.refreshEntry");
-        vscode.commands.executeCommand("upsun-cli.nodes.rels.refreshEntry");
+        vscode.commands.executeCommand(URI_NODE_APPLICATION_REFRESH);
+        vscode.commands.executeCommand(URI_NODE_RELATION_REFRESH);
     }
 }

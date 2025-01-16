@@ -1,9 +1,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { URI_EXTENSION } from './constants/extension';
 
-const STORAGE_DEFAULT_APP = 'upsun-cli.application_selected';
-const SECRET_TOKEN = 'upsun-cli.token';
+const STORAGE_DEFAULT_APP   = `${URI_EXTENSION}.application_selected`;
+const SECRET_TOKEN          = `${URI_EXTENSION}.token`;
 
 export class PshStorage {
     private readonly secretStorage: vscode.SecretStorage;
