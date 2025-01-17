@@ -15,7 +15,7 @@ export class SshCommand extends PshContextCommand {
     }
 
     displayMessage(): string {
-        return `Open SSH on ${this.context.environment} - ${this.app}`;
+        return `Opening SSH tunnel on ${this.context.environment} - ${this.app}`;
     }
 
     prepare(): string {
@@ -44,7 +44,7 @@ export class SshCommand extends PshContextCommand {
                 '';
             const options: vscode.TerminalOptions = {
                 name: title,
-                message: 'Be carrefull !',
+                message: 'Be carrefull!',
                 // iconPath
                 env: {
                     ...process.env,
@@ -59,7 +59,7 @@ export class SshCommand extends PshContextCommand {
         }
         term.show();
 
-        return 'SSH opened';
+        return 'SSH tunnel opened';
     }
 
     isCli(): boolean {

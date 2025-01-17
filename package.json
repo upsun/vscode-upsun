@@ -297,7 +297,7 @@
           {
             "id": "install.addons",
             "title": "Add addons for upsun",
-            "description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to Upsun](command:upsun-cli.ext.install.addons.convsun)",
+            "description": "This step will set a context key, and check off when that context has been set\n[Clone Upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to Upsun](command:upsun-cli.ext.install.addons.convsun)",
             "media": {
               "markdown": "resources/media/install/addons.md"
             },

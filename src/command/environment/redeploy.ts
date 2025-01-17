@@ -6,7 +6,7 @@ import { PshContextCommand } from '../base';
 const CLI_CMD = 'environment:redeploy';
 export class RedeployCommand extends PshContextCommand {
     displayMessage(): string {
-        return `Redeploy environment ${this.context.environment}`;
+        return `Redeploying environment ${this.context.environment}`;
     }
 
     prepare(): string {

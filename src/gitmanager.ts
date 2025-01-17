@@ -8,7 +8,7 @@ export class GitManager {
     constructor() {
         const ext = vscode.extensions.getExtension('vscode.git');
         if (ext) {
-            console.debug('Git Load Extension...');
+            console.debug('Git loading extension');
             let gitExtension: any | undefined;
             if (ext.isActive) {
                 gitExtension = ext.exports;
@@ -19,11 +19,11 @@ export class GitManager {
             }
             const api = gitExtension.getAPI(1);
 
-            console.debug('Git Load repository...');
+            console.debug('Git loading repository');
             this.repo = api.repositories[0];
             if (!this.repo) {
                 const msg =
-                    'No Git repository. Upsun uses Git, please run on Upsun projet or init your project';
+                    'No Git repository. Upsun uses Git, please init your project';
                 vscode.window.showInformationMessage(msg);
                 console.info(msg);
             }

@@ -58,7 +58,7 @@ export class RelsProvider extends ProviderBase<PshRelationshipItem> {
         const defaultApp = new PshStorage(this.vscontext).getDefaultApp();
         if (!this.workspaceRoot) {
             vscode.window.showInformationMessage(
-                'No dependency in empty workspace.',
+                'No dependencies in empty workspace.',
             );
             return Promise.resolve([]);
         }

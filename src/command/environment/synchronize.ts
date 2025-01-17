@@ -6,7 +6,7 @@ import { PshContextCommand } from '../base';
 const CLI_CMD = 'environment:synchronize';
 export class SynchronizeCommand extends PshContextCommand {
     displayMessage(): string {
-        return `Synchronize environment ${this.context.environment}`;
+        return `Synchronizing environment ${this.context.environment}`;
     }
 
     prepare(): string {

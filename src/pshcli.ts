@@ -95,7 +95,7 @@ export class PshCli {
             }
         } catch (e) {
             console.error(
-                `CLI An error has occurred while removing the temp folder at ${this.tmpDir}. Please remove it manually. Error: ${e}`,
+                `CLI an error has occurred while removing the temp folder at ${this.tmpDir}. Please remove it manually. Error: ${e}`,
             );
         }
     }

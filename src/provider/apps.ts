@@ -113,7 +113,7 @@ export class AppsProvider extends ProviderBase<PshApplicationItem> {
 
         if (!this.workspaceRoot /* //TODO check if env exist! */) {
             vscode.window.showInformationMessage(
-                'No dependency in empty workspace',
+                'No dependencies in empty workspace',
             );
             return Promise.resolve([]);
         }

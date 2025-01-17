@@ -7,7 +7,7 @@ import { WebBrowser } from '../../utils/webbrowser';
 const CLI_CMD = 'environment:url';
 export class UrlCommand extends PshSelectorContextCommand {
     displayMessage(): string {
-        return `Open URL on ${this.context.environment}`;
+        return `Opening ${this.context.environment} URL`;
     }
 
     prepare(): string {

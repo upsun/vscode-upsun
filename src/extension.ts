@@ -34,7 +34,7 @@ export async function activate(context: vscode.ExtensionContext) {
         .filter((command) => command.startsWith(URI_EXTENSION))
         .sort();
     console.debug(
-        'Commands availables :\n {0}',
+        'Commands available :\n {0}',
         JSON.stringify(extensionCommands, null, 2),
     );
 }

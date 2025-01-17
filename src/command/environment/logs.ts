@@ -17,7 +17,7 @@ export class LogsCommand extends PshContextCommand {
     }
 
     displayMessage(): string {
-        return `Display logs of ${this.context.environment}`;
+        return `Displaying logs of ${this.context.environment}`;
     }
 
     prepare(): string {

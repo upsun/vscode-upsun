@@ -59,7 +59,7 @@ async function registerInstallCli(context: vscode.ExtensionContext) {
 }
 
 async function registerFastSun(context: vscode.ExtensionContext) {
-    console.debug(`Register Fastsun Handlers`);
+    console.debug(`Register FastSun Handlers`);
 
     context.subscriptions.push(
         vscode.commands.registerCommand(URI_INSTALL_FASTSUN, async () => {

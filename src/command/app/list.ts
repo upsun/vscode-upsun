@@ -8,7 +8,7 @@ import { PshStorage } from '../../pshstore';
 const CLI_CMD = 'app:list';
 export class ListCommand extends PshSelectorContextCommand {
     displayMessage(): string {
-        return `List Applications of ${this.context.environment}`;
+        return `Listing applications of ${this.context.environment}`;
     }
 
     prepare(): string {

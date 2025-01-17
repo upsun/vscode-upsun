@@ -15,7 +15,7 @@ export class RelationshipsCommand extends PshSelectorContextCommand {
     }
 
     displayMessage(): string {
-        return `List relationship of ${this.app}`;
+        return `Listing relationship of application ${this.app}`;
     }
 
     prepare(): string {
