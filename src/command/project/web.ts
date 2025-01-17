@@ -1,11 +1,10 @@
 'use strict';
 
-import { WebBrowser } from "../../utils/webbrowser";
-import { PshContextCommand } from "../base";
+import { WebBrowser } from '../../utils/webbrowser';
+import { PshContextCommand } from '../base';
 
 const CLI_CMD = 'web';
 export class WebCommand extends PshContextCommand {
-
     displayMessage(): string {
         return `Open Console of ${this.context.projectId}`;
     }
@@ -15,7 +14,7 @@ export class WebCommand extends PshContextCommand {
     }
 
     convert(raw: string) {
-        return raw.replace(/\n$/, "");  // Remove last \n (only)
+        return raw.replace(/\n$/, ''); // Remove last \n (only)
     }
 
     async process(param: any): Promise<any> {

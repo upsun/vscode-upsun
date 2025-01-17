@@ -3,8 +3,8 @@
 import * as vscode from 'vscode';
 import { URI_EXTENSION } from './constants/extension';
 
-const STORAGE_DEFAULT_APP   = `${URI_EXTENSION}.application_selected`;
-const SECRET_TOKEN          = `${URI_EXTENSION}.token`;
+const STORAGE_DEFAULT_APP = `${URI_EXTENSION}.application_selected`;
+const SECRET_TOKEN = `${URI_EXTENSION}.token`;
 
 export class PshStorage {
     private readonly secretStorage: vscode.SecretStorage;
@@ -33,10 +33,11 @@ export class PshStorage {
      * Open InputBox to enter the token value.
      */
     async setToken() {
-        const token: string = await vscode.window.showInputBox({
-            password: true,
-            title: "Upsun Token"
-        }) ?? '';
+        const token: string =
+            (await vscode.window.showInputBox({
+                password: true,
+                title: 'Upsun Token',
+            })) ?? '';
 
         if (token !== '') {
             this.secretStorage.store(SECRET_TOKEN, token);

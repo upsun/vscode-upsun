@@ -1,12 +1,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { PshContextCommand } from "../base";
-
+import { PshContextCommand } from '../base';
 
 const CLI_CMD = 'environment:activate';
 export class ActivateCommand extends PshContextCommand {
-
     displayMessage(): string {
         return `Activating environment ${this.context.environment}`;
     }
@@ -16,7 +14,8 @@ export class ActivateCommand extends PshContextCommand {
     }
 
     process(param: any): any {
-        vscode.window.showInformationMessage(`Environment ${this.context.environment} activated.`);
+        vscode.window.showInformationMessage(
+            `Environment ${this.context.environment} activated.`,
+        );
     }
-
 }

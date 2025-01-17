@@ -1,12 +1,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { PshContextCommand } from "../base";
-
+import { PshContextCommand } from '../base';
 
 const CLI_CMD = 'environment:synchronize';
 export class SynchronizeCommand extends PshContextCommand {
-
     displayMessage(): string {
         return `Synchronize environment ${this.context.environment}`;
     }
@@ -16,7 +14,8 @@ export class SynchronizeCommand extends PshContextCommand {
     }
 
     process(param: any): any {
-        vscode.window.showInformationMessage(`Environment ${this.context.environment} synchronized.`);
+        vscode.window.showInformationMessage(
+            `Environment ${this.context.environment} synchronized.`,
+        );
     }
-
 }

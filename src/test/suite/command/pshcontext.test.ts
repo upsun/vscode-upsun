@@ -5,7 +5,6 @@ const prj = 'projectIDValue';
 const env = 'environmentValue';
 
 suite('PshContext Test Suite', () => {
-
     test('PshContext.projectId', () => {
         const ctx = new PshContext(prj, null, null);
         const expected = ` -p ${prj}`;

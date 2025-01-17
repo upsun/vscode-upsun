@@ -3,7 +3,6 @@ import { PshCommand, PshContext } from '../../../../command/base';
 import { SshCommand } from '../../../../command/environment/ssh';
 
 suite('Env/SSH Test Suite', () => {
-
     let cmd: PshCommand;
 
     setup(() => {
@@ -30,5 +29,4 @@ suite('Env/SSH Test Suite', () => {
             assert.fail();
         }
     });
-
 });

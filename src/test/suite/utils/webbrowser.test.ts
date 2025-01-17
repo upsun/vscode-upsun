@@ -2,7 +2,6 @@ import { assert } from 'chai';
 import { WebBrowser } from '../../../utils/webbrowser';
 
 suite('WebBrowser Test Suite', () => {
-
     test('WebBrowser.open', () => {
         try {
             WebBrowser.open('Test : You can close !');
@@ -12,5 +11,4 @@ suite('WebBrowser Test Suite', () => {
             assert.fail();
         }
     });
-
 });

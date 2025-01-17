@@ -11,7 +11,7 @@ import {
     URI_NODE_APPLICATION,
     URI_NODE_APPLICATION_LOG,
     URI_NODE_APPLICATION_REFRESH,
-    URI_NODE_APPLICATION_SSH
+    URI_NODE_APPLICATION_SSH,
 } from '../constants/apps';
 
 const COMPONENT_CTX = 'application';
@@ -23,10 +23,10 @@ export function registerViewApplication(context: vscode.ExtensionContext) {
     const tree = Tools.registerTreeview(
         provider,
         URI_NODE_APPLICATION,
-        URI_NODE_APPLICATION_REFRESH
+        URI_NODE_APPLICATION_REFRESH,
     );
 
-    tree.onDidChangeSelection(e => {
+    tree.onDidChangeSelection((e) => {
         if (e.selection.length > 0) {
             console.debug(`selected : ${e.selection[0]}`);
 
@@ -35,25 +35,35 @@ export function registerViewApplication(context: vscode.ExtensionContext) {
         }
     });
 
-    vscode.commands.registerCommand(URI_NODE_APPLICATION_SSH, async (res: PshApplicationItem) => {
-        console.debug(`Run ${URI_NODE_APPLICATION_SSH}`);
+    vscode.commands.registerCommand(
+        URI_NODE_APPLICATION_SSH,
+        async (res: PshApplicationItem) => {
+            console.debug(`Run ${URI_NODE_APPLICATION_SSH}`);
 
-        const [pshCli, ctx] = Tools.makeCliContext(context);
-        await pshCli.executeObj(new SshCommand(ctx, res.item.name)).then(resultRaw => {
-            console.debug(resultRaw);
-        });
-        pshCli.dispose();
-    });
+            const [pshCli, ctx] = Tools.makeCliContext(context);
+            await pshCli
+                .executeObj(new SshCommand(ctx, res.item.name))
+                .then((resultRaw) => {
+                    console.debug(resultRaw);
+                });
+            pshCli.dispose();
+        },
+    );
 
-    vscode.commands.registerCommand(URI_NODE_APPLICATION_LOG, async (res: PshApplicationItem) => {
-        console.debug(`Run ${URI_NODE_APPLICATION_LOG}`);
+    vscode.commands.registerCommand(
+        URI_NODE_APPLICATION_LOG,
+        async (res: PshApplicationItem) => {
+            console.debug(`Run ${URI_NODE_APPLICATION_LOG}`);
 
-        const [pshCli, ctx] = Tools.makeCliContext(context);
-        await pshCli.executeObj(new LogsCommand(ctx, res.item.name)).then(resultRaw => {
-            console.debug(resultRaw);
-        });
-        pshCli.dispose();
-    });
+            const [pshCli, ctx] = Tools.makeCliContext(context);
+            await pshCli
+                .executeObj(new LogsCommand(ctx, res.item.name))
+                .then((resultRaw) => {
+                    console.debug(resultRaw);
+                });
+            pshCli.dispose();
+        },
+    );
 }
 
 export class PshApplicationItem extends vscode.TreeItem {
@@ -75,8 +85,16 @@ export class PshApplicationItem extends vscode.TreeItem {
         const typeVersion = typeSplitted[1];
 
         this.iconPath = {
-            light: this.context.asAbsolutePath(path.join('resources', 'logo', `${typeName}.png`)),
-            dark: this.context.asAbsolutePath(path.join('resources', 'logo', `${typeName}.png`))
+            light: vscode.Uri.parse(
+                this.context.asAbsolutePath(
+                    path.join('resources', 'logo', `${typeName}.png`),
+                ),
+            ),
+            dark: vscode.Uri.parse(
+                this.context.asAbsolutePath(
+                    path.join('resources', 'logo', `${typeName}.png`),
+                ),
+            ),
         };
         this.description = this.item.type.toLowerCase();
         this.tooltip = this.item.type.toLowerCase();
@@ -85,16 +103,18 @@ export class PshApplicationItem extends vscode.TreeItem {
             `Language: ${typeName}\n` +
             `Version: ${typeVersion}`;
     }
-
 }
 
 export class AppsProvider extends ProviderBase<PshApplicationItem> {
-
-    getChildren(element?: PshApplicationItem): vscode.ProviderResult<PshApplicationItem[]> {
+    getChildren(
+        element?: PshApplicationItem,
+    ): vscode.ProviderResult<PshApplicationItem[]> {
         console.debug(`Run ${URI_NODE_APPLICATION} provider load`);
 
         if (!this.workspaceRoot /* //TODO check if env exist! */) {
-            vscode.window.showInformationMessage('No dependency in empty workspace');
+            vscode.window.showInformationMessage(
+                'No dependency in empty workspace',
+            );
             return Promise.resolve([]);
         }
 

@@ -1,18 +1,18 @@
-import { URI_EXTENSION } from "./extension";
+import { URI_EXTENSION } from './extension';
 
-const URI_CMD_ENVIRONMENT                       = `${URI_EXTENSION}.environment`;
-export const URI_NODE_ENVIRONMENT               = `${URI_EXTENSION}.nodes.envs`;
+const URI_CMD_ENVIRONMENT = `${URI_EXTENSION}.environment`;
+export const URI_NODE_ENVIRONMENT = `${URI_EXTENSION}.nodes.envs`;
 
-export const URI_NODE_ENVIRONMENT_REFRESH       = `${URI_NODE_ENVIRONMENT}.refresh`;
-export const URI_NODE_ENVIRONMENT_ACTIVATE      = `${URI_NODE_ENVIRONMENT}.activateEntry`;
-export const URI_NODE_ENVIRONMENT_DESACTIVATE   = `${URI_NODE_ENVIRONMENT}.deactivateEntry`;
-export const URI_NODE_ENVIRONMENT_REDEPLOY      = `${URI_NODE_ENVIRONMENT}.redeployEntry`;
-export const URI_NODE_ENVIRONMENT_URL           = `${URI_NODE_ENVIRONMENT}.urlEntry`;
+export const URI_NODE_ENVIRONMENT_REFRESH = `${URI_NODE_ENVIRONMENT}.refresh`;
+export const URI_NODE_ENVIRONMENT_ACTIVATE = `${URI_NODE_ENVIRONMENT}.activateEntry`;
+export const URI_NODE_ENVIRONMENT_DESACTIVATE = `${URI_NODE_ENVIRONMENT}.deactivateEntry`;
+export const URI_NODE_ENVIRONMENT_REDEPLOY = `${URI_NODE_ENVIRONMENT}.redeployEntry`;
+export const URI_NODE_ENVIRONMENT_URL = `${URI_NODE_ENVIRONMENT}.urlEntry`;
 
-export const URI_CMD_ENVIRONMENT_URL            = `${URI_CMD_ENVIRONMENT}:url`;
-export const URI_CMD_ENVIRONMENT_SSH            = `${URI_CMD_ENVIRONMENT}:ssh`; //TODO APP
-export const URI_CMD_ENVIRONMENT_ACTIVATE       = `${URI_CMD_ENVIRONMENT}:activate`;
-export const URI_CMD_ENVIRONMENT_DESACTIVATE    = `${URI_CMD_ENVIRONMENT}:deactivate`;
-export const URI_CMD_ENVIRONMENT_LOG            = `${URI_CMD_ENVIRONMENT}:logs`; //TODO APP
-export const URI_CMD_ENVIRONMENT_REDEPLOY       = `${URI_CMD_ENVIRONMENT}:redeploy`;
-export const URI_CMD_ENVIRONMENT_SYNCHRONIZE    = `${URI_CMD_ENVIRONMENT}:synchronize`;
+export const URI_CMD_ENVIRONMENT_URL = `${URI_CMD_ENVIRONMENT}:url`;
+export const URI_CMD_ENVIRONMENT_SSH = `${URI_CMD_ENVIRONMENT}:ssh`; //TODO APP
+export const URI_CMD_ENVIRONMENT_ACTIVATE = `${URI_CMD_ENVIRONMENT}:activate`;
+export const URI_CMD_ENVIRONMENT_DESACTIVATE = `${URI_CMD_ENVIRONMENT}:deactivate`;
+export const URI_CMD_ENVIRONMENT_LOG = `${URI_CMD_ENVIRONMENT}:logs`; //TODO APP
+export const URI_CMD_ENVIRONMENT_REDEPLOY = `${URI_CMD_ENVIRONMENT}:redeploy`;
+export const URI_CMD_ENVIRONMENT_SYNCHRONIZE = `${URI_CMD_ENVIRONMENT}:synchronize`;
