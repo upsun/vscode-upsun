@@ -23,13 +23,13 @@ export class GitManager {
             this.repo = api.repositories[0];
             if (!this.repo) {
                 const msg =
-                    'No Git repository. Upsun use Git, please run on upsun projet or init your project';
+                    'No Git repository. Upsun uses Git, please run on Upsun projet or init your project';
                 vscode.window.showInformationMessage(msg);
                 console.info(msg);
             }
         } else {
             const msg =
-                'No Git extension. Upsun use Git, please install Git extension on VScode';
+                'No Git extension. Upsun uses Git, please install Git extension on VScode';
             vscode.window.showInformationMessage(msg);
             console.info(msg);
         }

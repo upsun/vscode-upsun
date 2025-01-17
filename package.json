@@ -1,7 +1,7 @@
 {
   "name": "upsun",
   "displayName": "Upsun Integration",
-  "description": "Front end to Upsun CLI on Visual Studio Code!",
+  "description": "Manage your Cloud infrastructure at Upsun from your favorite IDE",
   "version": "0.8.0",
   "preview": true,
   "author": {
@@ -43,12 +43,12 @@
     "viewsWelcome": [
       {
         "view": "upsun-cli.nodes.envs",
-        "contents": "Config upsun extenstion [learn more](https://upsun.com/).\n[Configure Upsun extension](command:upsun-cli.ext.setting)",
+        "contents": "Let's configure your Upsun extension [learn more](https://upsun.com/).\n[Configure Upsun extension](command:upsun-cli.ext.setting)",
         "when": "upsun-cli.token == empty"
       },
       {
         "view": "upsun-cli.nodes.envs",
-        "contents": "No Upsun project found [learn more](https://upsun.com/).\n[Initialize project](command:todo.addEntry)",
+        "contents": "No Upsun project found [learn more](https://console.upsun.com/xxxx/create-project). Your project must contain a .upsun/local/project.yaml to use this extension. \n[Initialize project](command:todo.addEntry)",
         "when": "upsun-cli.token != empty"
       }
     ],
@@ -125,22 +125,22 @@
     "commands": [
       {
         "command": "upsun-cli.ext.setting",
-        "title": "Upsun setting",
+        "title": "Extension setting",
         "category": "Upsun"
       },
       {
         "command": "upsun-cli.ext.setting.token",
-        "title": "Upsun set Token",
+        "title": "Create API token",
         "category": "Upsun"
       },
       {
         "command": "upsun-cli.ext.install.cli",
-        "title": "Install upsun CLI",
+        "title": "Install Upsun CLI",
         "category": "Upsun"
       },
       {
         "command": "upsun-cli.ext.site.user.create",
-        "title": "Create upsun user",
+        "title": "Create Upsun user",
         "category": "Upsun"
       },
       {
@@ -150,17 +150,17 @@
       },
       {
         "command": "upsun-cli.project.console.open",
-        "title": "Open console",
+        "title": "Open Upsun console",
         "category": "Upsun"
       },
       {
         "command": "upsun-cli.environment:url",
-        "title": "Open web browser of the public URLs of an environment",
+        "title": "Open environment URL in browser",
         "category": "Upsun"
       },
       {
         "command": "upsun-cli.environment:ssh",
-        "title": "Open SSH to the current environment",
+        "title": "Open SSH to current environment",
         "category": "Upsun"
       },
       {
@@ -240,7 +240,7 @@
             "title": "Upsun CLI binary path",
             "type": "string",
             "default": "upsun",
-            "description": "Location of upsun binary",
+            "description": "Upsun binary location",
             "scope": "resource"
           },
           "upsun-cli.token": {
@@ -263,8 +263,8 @@
         "steps": [
           {
             "id": "install.cli",
-            "title": "Install upsun CLI",
-            "description": "This step will install a command line and check off once it has been run.\n[Install upsun CLI](command:upsun-cli.ext.install.cli)",
+            "title": "Install Upsun CLI",
+            "description": "This step will install a command line and check off once it has been run.\n[Install Upsun CLI](command:upsun-cli.ext.install.cli)",
             "media": {
               "markdown": "resources/media/install/cli.md"
             },
@@ -274,8 +274,8 @@
           },
           {
             "id": "site.user.create",
-            "title": "Create upsun account",
-            "description": "This step will create a user on upsun and check off once it has been run.\n[Create upsun user](command:upsun-cli.ext.site.user.create)",
+            "title": "Create Upsun account",
+            "description": "This step will create a user on Upsun and check off once it has been run.\n[Create Upsun user](command:upsun-cli.ext.site.user.create)",
             "media": {
               "markdown": "resources/media/user.create.md"
             },
@@ -285,7 +285,7 @@
           },
           {
             "id": "setting",
-            "title": "Change upsun Setting",
+            "title": "Change Upsun setting",
             "description": "This step will change a setting and check off when the setting has changed\n[Change Setting](command:upsun-cli.ext.setting)",
             "media": {
               "markdown": "resources/media/setting.md"
@@ -297,7 +297,7 @@
           {
             "id": "install.addons",
             "title": "Add addons for upsun",
-            "description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to upsun](command:upsun-cli.ext.install.addons.convsun)",
+            "description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to Upsun](command:upsun-cli.ext.install.addons.convsun)",
             "media": {
               "markdown": "resources/media/install/addons.md"
             },
