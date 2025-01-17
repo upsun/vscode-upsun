@@ -6,11 +6,11 @@ import * as vscode from 'vscode';
  * Extend/Aggregate VSCode Context with PSH specific context
  */
 export class PshContext {
-
     constructor(
-        public readonly projectId: string|null|undefined,
-        public readonly environment: string|null|undefined,
-        public readonly vscontext: vscode.ExtensionContext|null|undefined) { }
+        public readonly projectId: string | null | undefined,
+        public readonly environment: string | null | undefined,
+        public readonly vscontext: vscode.ExtensionContext | null | undefined,
+    ) {}
 
     toString(): string {
         return this.allParameter();
@@ -35,12 +35,11 @@ export class PshContext {
         }
         return result;
     }
-
 }
 
 /**
  * Generic Base of Command
- * 
+ *
  * Life cycle :
  * - check isCli()
  * - call displayMessage() (in progress message only)
@@ -51,7 +50,6 @@ export class PshContext {
  * - (can be return result for sub-call)
  */
 export abstract class PshCommand {
-
     /**
      * Prepare CLi command and parameters.
      */
@@ -68,7 +66,7 @@ export abstract class PshCommand {
      * Normalize data.
      * @param raw result from CLI
      * @returns Normalized result
-     */    
+     */
     convert(raw: string): any {
         return raw;
     }
@@ -82,7 +80,7 @@ export abstract class PshCommand {
         return true;
     }
 
-    public toString = () : string => {
+    public toString = (): string => {
         return this.prepare();
     };
 
@@ -96,18 +94,20 @@ export abstract class PshCommand {
  * PSH Base of Command
  */
 export abstract class PshContextCommand extends PshCommand {
-
-    constructor(
-        public readonly context: PshContext) {
+    constructor(public readonly context: PshContext) {
         super();
     }
 }
 
 export interface PshSelector {}
-export abstract class PshSelectorContextCommand extends PshContextCommand implements PshSelector {
-
-    constructor(context: PshContext,
-        public readonly isSelector: boolean = false) {
+export abstract class PshSelectorContextCommand
+    extends PshContextCommand
+    implements PshSelector
+{
+    constructor(
+        context: PshContext,
+        public readonly isSelector: boolean = false,
+    ) {
         super(context);
     }
 }

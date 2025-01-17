@@ -1,8 +1,12 @@
 import { assert } from 'chai';
-import { Architecture, getArchitecture, getOSType, OSType } from '../../../utils/platform';
+import {
+    Architecture,
+    getArchitecture,
+    getOSType,
+    OSType,
+} from '../../../utils/platform';
 
 suite('Platform Test Suite', () => {
-
     test('Platform.getOSType.Linux', () => {
         assert.strictEqual(getOSType('linux'), OSType.linux);
     });

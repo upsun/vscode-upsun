@@ -1,0 +1,23 @@
+name: "Setup"
+description: "Prepare build environement"
+
+inputs:
+  node_version:
+    description: "Version of Node to install"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+        cache: "npm"
+
+    - name: Install Dependencies
+      run: npm install
+      shell: bash
+
+    - name: Clean Env
+      run: npm ci
+      shell: bash

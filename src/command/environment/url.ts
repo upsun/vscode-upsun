@@ -1,13 +1,11 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { PshSelectorContextCommand } from "../base";
+import { PshSelectorContextCommand } from '../base';
 import { WebBrowser } from '../../utils/webbrowser';
-
 
 const CLI_CMD = 'environment:url';
 export class UrlCommand extends PshSelectorContextCommand {
-
     displayMessage(): string {
         return `Open URL on ${this.context.environment}`;
     }
@@ -17,8 +15,8 @@ export class UrlCommand extends PshSelectorContextCommand {
     }
 
     convert(raw: string): any {
-        const subRaw = raw.replace(/\n$/, "");  // Remove last \n (only)
-        return subRaw.split("\n");
+        const subRaw = raw.replace(/\n$/, ''); // Remove last \n (only)
+        return subRaw.split('\n');
     }
 
     async process(param: any) {

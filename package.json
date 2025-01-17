@@ -11,7 +11,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/upsun/vscode-upsun/blob/main/README.md",
   "publisher": "upsun-vscode",
-  "icon": "resources/images/upsun-logo.png",
+  "icon": "resources/images/upsun-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/upsun/vscode-upsun"
@@ -37,8 +37,7 @@
   "sponsor": {
     "url": "https://platform.sh"
   },
-  "activationEvents": [
-  ],
+  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "viewsWelcome": [
@@ -53,18 +52,15 @@
         "when": "upsun-cli.token != empty"
       }
     ],
-
     "viewsContainers": {
       "activitybar": [
         {
           "id": "upsun-cli",
           "title": "Upsun",
           "icon": "resources/images/upsun-icon-black.svg"
-          
         }
       ]
     },
-
     "views": {
       "upsun-cli": [
         {
@@ -81,7 +77,6 @@
         }
       ]
     },
-
     "menus": {
       "view/title": [
         {
@@ -100,7 +95,6 @@
           "group": "navigation"
         }
       ],
-
       "view/item/context": [
         {
           "command": "upsun-cli.nodes.apps.sshEntry",
@@ -110,7 +104,6 @@
           "command": "upsun-cli.nodes.apps.logEntry",
           "when": "view == upsun-cli.nodes.apps && viewItem =~ /^application.*$/"
         },
-
         {
           "command": "upsun-cli.nodes.envs.activateEntry",
           "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment((?!active).)*$/"
@@ -127,10 +120,8 @@
           "command": "upsun-cli.nodes.envs.urlEntry",
           "when": "view == upsun-cli.nodes.envs && viewItem =~ /^environment.*\\.active\\.*$/"
         }
-
       ]
     },
-
     "commands": [
       {
         "command": "upsun-cli.ext.setting",
@@ -241,7 +232,6 @@
         }
       }
     ],
-
     "configuration": [
       {
         "title": "Upsun",
@@ -263,63 +253,62 @@
         }
       }
     ],
-
     "walkthroughs": [
-			{
-				"id": "welcome",
-				"title": "Upsun Integration",
+      {
+        "id": "welcome",
+        "title": "Upsun Integration",
         "icon": "",
         "featuredFor": [],
-				"description": "How to use Upsun on VScode. You need to...",
-				"steps": [
-					{
-						"id": "install.cli",
-						"title": "Install upsun CLI",
-						"description": "This step will install a command line and check off once it has been run.\n[Install upsun CLI](command:upsun-cli.ext.install.cli)",
-						"media": {
-							"markdown": "resources/media/install/cli.md"
-						},
-						"completionEvents": [
-							"onCommand:upsun-cli.ext.install.cli"
-						]
-					},
+        "description": "How to use Upsun on VScode. You need to...",
+        "steps": [
           {
-						"id": "site.user.create",
-						"title": "Create upsun account",
-						"description": "This step will create a user on upsun and check off once it has been run.\n[Create upsun user](command:upsun-cli.ext.site.user.create)",
-						"media": {
-							"markdown": "resources/media/user.create.md"
-						},
-						"completionEvents": [
-							"onCommand:upsun-cli.ext.site.user.create"
-						]
-					},
-					{
-						"id": "setting",
-						"title": "Change upsun Setting",
-						"description": "This step will change a setting and check off when the setting has changed\n[Change Setting](command:upsun-cli.ext.setting)",
-						"media": {
-							"markdown": "resources/media/setting.md"
-						},
-						"completionEvents": [
-							"onSettingChanged:upsun-cli.ext.setting"
-						]
-					},
-					{
-						"id": "install.addons",
-						"title": "Add addons for upsun",
-						"description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to upsun](command:upsun-cli.ext.install.addons.convsun)",
-						"media": {
-							"markdown": "resources/media/install/addons.md"
-						},
-						"completionEvents": [
-							"onContext:upsun-cli.ext.install.addons.clonsun",
+            "id": "install.cli",
+            "title": "Install upsun CLI",
+            "description": "This step will install a command line and check off once it has been run.\n[Install upsun CLI](command:upsun-cli.ext.install.cli)",
+            "media": {
+              "markdown": "resources/media/install/cli.md"
+            },
+            "completionEvents": [
+              "onCommand:upsun-cli.ext.install.cli"
+            ]
+          },
+          {
+            "id": "site.user.create",
+            "title": "Create upsun account",
+            "description": "This step will create a user on upsun and check off once it has been run.\n[Create upsun user](command:upsun-cli.ext.site.user.create)",
+            "media": {
+              "markdown": "resources/media/user.create.md"
+            },
+            "completionEvents": [
+              "onCommand:upsun-cli.ext.site.user.create"
+            ]
+          },
+          {
+            "id": "setting",
+            "title": "Change upsun Setting",
+            "description": "This step will change a setting and check off when the setting has changed\n[Change Setting](command:upsun-cli.ext.setting)",
+            "media": {
+              "markdown": "resources/media/setting.md"
+            },
+            "completionEvents": [
+              "onSettingChanged:upsun-cli.ext.setting"
+            ]
+          },
+          {
+            "id": "install.addons",
+            "title": "Add addons for upsun",
+            "description": "This step will set a context key, and check off when that context has been set\n[Clone upsun project](command:upsun-cli.ext.install.addons.clonsun)\n[Convert to upsun](command:upsun-cli.ext.install.addons.convsun)",
+            "media": {
+              "markdown": "resources/media/install/addons.md"
+            },
+            "completionEvents": [
+              "onContext:upsun-cli.ext.install.addons.clonsun",
               "onContext:upsun-cli.ext.install.addons.convsun"
-						]
-					}
-				]
-			}
-		]
+            ]
+          }
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -327,6 +316,9 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
+    "format-check": "prettier --check 'src/**/*.ts' '.github/**/*.yml'",
+    "format-fix": "prettier --write 'src/**/*.ts' '.github/**/*.yml' gulpfile.js",
+    "checkDependencies": "gulp checkDependencies",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
@@ -335,16 +327,19 @@
     "@types/glob": "^7.2.0",
     "@types/js-yaml": "^4.0.5",
     "@types/mocha": "^9.1.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.75.0",
+    "@types/node": "^22.x",
+    "@types/vscode": "^1.81.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
-    "@vscode/test-electron": "^2.1.3",
+    "@vscode/test-electron": "^2.3.8",
+    "@vscode/vsce": "^3.2.1",
     "chai": "^4.3.6",
     "eslint": "^8.11.0",
     "glob": "^7.2.0",
+    "gulp": "^5.0.0",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
+    "prettier": "^3.4.2",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.7.0",
     "typescript": "^4.5.5"

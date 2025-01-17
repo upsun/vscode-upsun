@@ -3,7 +3,6 @@ import { PshCommand, PshContext } from '../../../../command/base';
 import { UrlCommand } from '../../../../command/environment/url';
 
 suite('Env/URL Test Suite', () => {
-
     let cmd: PshCommand;
 
     setup(() => {

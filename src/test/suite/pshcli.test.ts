@@ -3,7 +3,6 @@ import { PshContext, PshContextCommand } from '../../command/base';
 import { PshCli } from '../../pshcli';
 
 class MockCommand extends PshContextCommand {
-
     constructor() {
         super(new PshContext('', '', null));
     }
@@ -13,10 +12,10 @@ class MockCommand extends PshContextCommand {
     }
 
     prepare(): string {
-        return " > /dev/null ; echo -n success";
+        return ' > /dev/null ; echo -n success';
     }
 
-    process(param: any): void { }
+    process(param: any): void {}
 }
 
 suite('PshCli Test Suite', () => {
@@ -39,7 +38,9 @@ suite('PshCli Test Suite', () => {
     });
 
     test('PshCli.executeStr.ok', async () => {
-        const rawResult = await cli.executeStr(" > /dev/null ; echo -n success");
+        const rawResult = await cli.executeStr(
+            ' > /dev/null ; echo -n success',
+        );
         assert.strictEqual(rawResult, 'success');
     });
 

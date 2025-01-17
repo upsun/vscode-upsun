@@ -1,12 +1,10 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { PshContextCommand } from "../base";
-
+import { PshContextCommand } from '../base';
 
 const CLI_CMD = 'environment:redeploy';
 export class RedeployCommand extends PshContextCommand {
-
     displayMessage(): string {
         return `Redeploy environment ${this.context.environment}`;
     }
@@ -16,7 +14,8 @@ export class RedeployCommand extends PshContextCommand {
     }
 
     process(param: any): any {
-        vscode.window.showInformationMessage(`Environment ${this.context.environment} redeployed.`);
+        vscode.window.showInformationMessage(
+            `Environment ${this.context.environment} redeployed.`,
+        );
     }
-
 }

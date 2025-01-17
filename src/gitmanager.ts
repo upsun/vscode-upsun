@@ -6,14 +6,14 @@ export class GitManager {
     repo: any;
 
     constructor() {
-        const ext =  vscode.extensions.getExtension('vscode.git');
+        const ext = vscode.extensions.getExtension('vscode.git');
         if (ext) {
             console.debug('Git Load Extension...');
-            let gitExtension: any|undefined;
+            let gitExtension: any | undefined;
             if (ext.isActive) {
                 gitExtension = ext.exports;
             } else {
-                ext.activate().then( result => {
+                ext.activate().then((result) => {
                     gitExtension = result;
                 });
             }
@@ -21,19 +21,21 @@ export class GitManager {
 
             console.debug('Git Load repository...');
             this.repo = api.repositories[0];
-            if (! this.repo) {
-                const msg = 'No Git repository. Upsun use Git, please run on upsun projet or init your project';
+            if (!this.repo) {
+                const msg =
+                    'No Git repository. Upsun use Git, please run on upsun projet or init your project';
                 vscode.window.showInformationMessage(msg);
                 console.info(msg);
             }
         } else {
-            const msg = 'No Git extension. Upsun use Git, please install Git extension on VScode';
+            const msg =
+                'No Git extension. Upsun use Git, please install Git extension on VScode';
             vscode.window.showInformationMessage(msg);
             console.info(msg);
         }
     }
 
-    currentBranch() : string|undefined {
+    currentBranch(): string | undefined {
         let result = undefined;
         if (this.repo) {
             if (this.repo.state.HEAD) {

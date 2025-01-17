@@ -2,11 +2,14 @@ import path = require('path');
 import * as vscode from 'vscode';
 import { Tools } from '../project';
 import { ProviderBase } from './common';
-import { PshRelationships, RelationshipsCommand } from '../command/environment/relationships';
+import {
+    PshRelationships,
+    RelationshipsCommand,
+} from '../command/environment/relationships';
 import { PshStorage } from '../pshstore';
 import {
     URI_NODE_RELATION,
-    URI_NODE_RELATION_REFRESH
+    URI_NODE_RELATION_REFRESH,
 } from '../constants/rels';
 
 const COMPONENT_CTX = 'relationship';
@@ -17,21 +20,29 @@ export function registerViewRelationship(context: vscode.ExtensionContext) {
     Tools.registerTreeview(
         new RelsProvider(Tools.getRootPath(), context),
         URI_NODE_RELATION,
-        URI_NODE_RELATION_REFRESH
+        URI_NODE_RELATION_REFRESH,
     );
 }
 
 export class PshRelationshipItem extends vscode.TreeItem {
     constructor(
         private readonly context: vscode.ExtensionContext,
-        private readonly item: PshRelationships
+        private readonly item: PshRelationships,
     ) {
         super(item.id);
         this.contextValue = COMPONENT_CTX;
 
         this.iconPath = {
-            light: this.context.asAbsolutePath(path.join('resources', 'logo', `${this.item.type}.png`)),
-            dark: this.context.asAbsolutePath(path.join('resources', 'logo', `${this.item.type}.png`))
+            light: vscode.Uri.parse(
+                this.context.asAbsolutePath(
+                    path.join('resources', 'logo', `${this.item.type}.png`),
+                ),
+            ),
+            dark: vscode.Uri.parse(
+                this.context.asAbsolutePath(
+                    path.join('resources', 'logo', `${this.item.type}.png`),
+                ),
+            ),
         };
         this.description = `${this.item.type}:${this.item.version} `;
         this.tooltip = this.item.machine;
@@ -39,13 +50,16 @@ export class PshRelationshipItem extends vscode.TreeItem {
 }
 
 export class RelsProvider extends ProviderBase<PshRelationshipItem> {
-
-    getChildren(element?: PshRelationshipItem): vscode.ProviderResult<PshRelationshipItem[]> {
+    getChildren(
+        element?: PshRelationshipItem,
+    ): vscode.ProviderResult<PshRelationshipItem[]> {
         console.debug(`Run ${URI_NODE_RELATION} provider load`);
 
         const defaultApp = new PshStorage(this.vscontext).getDefaultApp();
         if (!this.workspaceRoot) {
-            vscode.window.showInformationMessage('No dependency in empty workspace.');
+            vscode.window.showInformationMessage(
+                'No dependency in empty workspace.',
+            );
             return Promise.resolve([]);
         }
 
