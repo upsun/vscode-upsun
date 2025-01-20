@@ -3,9 +3,11 @@
 // Base on https://github.com/microsoft/vscode-python/blob/main/src/client/common/utils/platform.ts
 
 export enum Architecture {
-    unknown = 1,
-    x86 = 2,
-    x64 = 3,
+    unknown = 0,
+    arm = 1,
+    arm64 = 2,
+    x86 = -1,
+    x64 = 12,
 }
 export enum OSType {
     unknown = 'Unknown',
@@ -30,6 +32,8 @@ export function getOSType(platform: string = process.platform): OSType {
 const architectures: Record<string, Architecture> = {
     x86: Architecture.x86, // 32-bit
     x64: Architecture.x64, // 64-bit
+    arm: Architecture.arm,
+    arm64: Architecture.arm64,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     '': Architecture.unknown,
 };
@@ -43,6 +47,66 @@ export function getArchitecture(archIdx: string = process.arch): Architecture {
         return fromProc;
     }
 
+    // Fallback
     const arch = require('arch');
     return architectures[arch()] || Architecture.unknown;
+}
+
+export function getBrowserCommand(): string {
+    let cmd: string;
+
+    switch (getOSType()) {
+        case OSType.windows:
+            cmd = 'start';
+            break;
+        case OSType.osx:
+            cmd = 'open';
+            break;
+        case OSType.linux:
+        default:
+            cmd = 'xdg-open';
+            break;
+    }
+
+    return cmd;
+}
+
+export function getGithubFileTag(): [string, string, string] {
+    let os: string;
+    let arch: string;
+    let ext: string = 'tar.gz';
+    let cmd: string = 'tar -xvzf';
+    let dest: string = '~/.upsun-cli/addons';
+
+    switch (getOSType()) {
+        case OSType.windows:
+            os = OSType.windows.toLowerCase();
+            cmd = 'powershell Expand-Archive -Path '; //TODO need to test
+            ext = 'zip';
+            dest = '%USERQ%/.upsun-cli/addons';
+            break;
+        case OSType.osx:
+            os = 'darwin';
+            break;
+        case OSType.linux:
+        default:
+            os = OSType.linux.toLowerCase();
+            break;
+    }
+
+    switch (getArchitecture()) {
+        case Architecture.x64:
+            arch = 'amd64';
+            break;
+        case Architecture.arm64:
+            arch = 'arm64';
+            break;
+        case Architecture.arm:
+        case Architecture.x86:
+        case Architecture.unknown:
+            throw new Error('Not supported');
+    }
+
+    const item: string = `-${os}-${arch}.${ext}`;
+    return [cmd, item, dest];
 }

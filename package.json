@@ -139,6 +139,16 @@
         "category": "Upsun"
       },
       {
+        "command": "upsun-cli.ext.install.addons.clonsun",
+        "title": "Install ClonSun tool",
+        "category": "Upsun"
+      },
+      {
+        "command": "upsun-cli.ext.install.addons.convsun",
+        "title": "Install ConvSun tool",
+        "category": "Upsun"
+      },
+      {
         "command": "upsun-cli.ext.site.user.create",
         "title": "Create Upsun user",
         "category": "Upsun"
@@ -331,6 +341,7 @@
     "@types/vscode": "^1.81.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
+    "@vscode/l10n-dev": "^0.0.35",
     "@vscode/test-electron": "^2.3.8",
     "@vscode/vsce": "^3.2.1",
     "chai": "^4.3.6",

@@ -1,23 +1,11 @@
 'use strict';
 
-import { getOSType, OSType } from './platform';
+import { getBrowserCommand } from './platform';
 const { exec } = require('child_process');
 
 export abstract class WebBrowser {
     static open(url: string) {
-        let cmd: string;
-        switch (getOSType()) {
-            case OSType.windows:
-                cmd = 'start';
-                break;
-            case OSType.osx:
-                cmd = 'open';
-                break;
-            case OSType.linux:
-            default:
-                cmd = 'xdg-open';
-                break;
-        }
+        let cmd: string = getBrowserCommand();
 
         const icmd = `${cmd} ${url}`;
         exec(
