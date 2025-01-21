@@ -1,25 +1,41 @@
 import { assert } from 'chai';
+import * as vscode from 'vscode';
 import { PshContext, PshContextCommand } from '../../command/base';
 import { PshCli } from '../../pshcli';
+import { ExtensionContext, extensions } from 'vscode';
+
+//TODO refactor
+import * as path from 'path';
+export const rootPath = path.resolve(__dirname, '../../../');
+const packageJSON: any = require(path.resolve(rootPath, 'package.json'));
+export const extensionId = `${packageJSON.publisher}.${packageJSON.name}`;
 
 class MockCommand extends PshContextCommand {
-    constructor() {
-        super(new PshContext('', '', null));
+    constructor(ext: vscode.ExtensionContext) {
+        super(new PshContext('', '', ext));
     }
 
     displayMessage(): string {
-        throw new Error('Method not implemented.');
+        return 'display mock';
     }
 
     prepare(): string {
-        return ' > /dev/null ; echo -n success';
+        return ' &> /dev/null ; echo -n success';
     }
 
-    process(param: any): void {}
+    process(param: any): any {
+        return param;
+    }
 }
 
 suite('PshCli Test Suite', () => {
     let cli: PshCli;
+    let extensionContext: ExtensionContext;
+
+    suiteSetup('PshStore suite setup', async () => {
+        await extensions.getExtension(extensionId)?.activate();
+        extensionContext = (global as any).testExtensionContext;
+    });
 
     setup('PshCli setup', () => {
         cli = new PshCli();
@@ -33,9 +49,10 @@ suite('PshCli Test Suite', () => {
         assert.isDefined(cli);
     });
 
-    test('PshCli.dispose', async () => {
-        cli.dispose();
-    });
+    // Close by Teardown cannot be test.
+    // test('PshCli.dispose', async () => {
+    //     cli.dispose();
+    // });
 
     test('PshCli.executeStr.ok', async () => {
         const rawResult = await cli.executeStr(
@@ -51,7 +68,9 @@ suite('PshCli Test Suite', () => {
     // });
 
     test('PshCli.executeObj.ok', async () => {
-        const rawResult = await cli.executeObj(new MockCommand());
+        const rawResult = await cli.executeObj(
+            new MockCommand(extensionContext),
+        );
         assert.strictEqual(rawResult, 'success');
     });
 });

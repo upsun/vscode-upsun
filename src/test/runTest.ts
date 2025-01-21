@@ -1,7 +1,9 @@
 import * as path from 'path';
 
 import { runTests } from '@vscode/test-electron';
+import { Console } from 'console';
 
+// Use from CLI not on VScode laucnher !!
 async function main() {
     try {
         // The folder containing the Extension Manifest package.json
@@ -13,7 +15,7 @@ async function main() {
         const extensionTestsPath = path.resolve(__dirname, './suite/index');
 
         const launchArgs = [
-            path.resolve(__dirname, '../../src/test/fixtures/fake-project1/'),
+            path.resolve(__dirname, '../../src/test/fixtures/fake-upsun'),
         ];
 
         // Download VS Code, unzip it and run the integration test

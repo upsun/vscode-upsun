@@ -44,14 +44,16 @@
 			"request": "launch",
             "runtimeExecutable": "${execPath}",
 			"args": [
-                "${workspaceFolder}/src/test/fixtures/fake-psh",
+                "${workspaceFolder}/src/test/fixtures/fake-upsun",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index",
 				"--disable-extensions",
 				"--disable-workspace-trust",
 			],
+			// "sourceMaps": true,
+			// "trace": true,
 			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
+				"${workspaceFolder}/out/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
 		}

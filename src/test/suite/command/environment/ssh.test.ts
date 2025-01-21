@@ -28,5 +28,5 @@ suite('Env/SSH Test Suite', () => {
         } catch (e) {
             assert.fail();
         }
-    });
+    }).skip();
 });

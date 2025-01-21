@@ -51,7 +51,7 @@ async function registerSettingToken(context: vscode.ExtensionContext) {
             URI_EXTENSION_SETTING_TOKEN,
             async () => {
                 const store = new PshStorage(context);
-                await store.setToken();
+                await store.setTokenInteractive();
             },
         ),
     );

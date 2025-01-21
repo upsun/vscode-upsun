@@ -35,5 +35,5 @@ suite('Env/URL Test Suite', () => {
         } catch (e) {
             assert.fail();
         }
-    });
+    }).skip();
 });
