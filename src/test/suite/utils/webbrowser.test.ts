@@ -6,7 +6,7 @@ suite('WebBrowser Test Suite', () => {
         try {
             WebBrowser.open('Test : You can close !');
 
-            assert.equal(1, 1);
+            assert.equal(1, 1); // Only test if not fail!
         } catch (e) {
             assert.fail();
         }

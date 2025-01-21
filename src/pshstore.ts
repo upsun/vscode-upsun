@@ -32,13 +32,22 @@ export class PshStorage {
      *
      * Open InputBox to enter the token value.
      */
-    async setToken() {
-        const token: string =
-            (await vscode.window.showInputBox({
+    //TODO move on UI code (not tested)
+    setTokenInteractive() {
+        vscode.window
+            .showInputBox({
                 password: true,
                 title: 'Upsun Token',
-            })) ?? '';
+            })
+            .then((token) => {
+                this.setToken(token ?? '');
+            });
+    }
 
+    /**
+     * Define Token into settings(boolean) and SecretStorage(value).
+     */
+    setToken(token: string) {
         if (token !== '') {
             this.secretStorage.store(SECRET_TOKEN, token);
             vscode.workspace.getConfiguration().update(SECRET_TOKEN, true);

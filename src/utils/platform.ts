@@ -41,21 +41,21 @@ const architectures: Record<string, Architecture> = {
 /**
  * Identify the host's native architecture/bitness.
  */
-export function getArchitecture(archIdx: string = process.arch): Architecture {
-    const fromProc = architectures[archIdx];
+export function getArchitecture(arch: string = process.arch): Architecture {
+    const fromProc = architectures[arch];
     if (fromProc !== undefined) {
         return fromProc;
     }
 
     // Fallback
-    const arch = require('arch');
-    return architectures[arch()] || Architecture.unknown;
+    const archModule = require('arch');
+    return architectures[archModule()] || Architecture.unknown;
 }
 
-export function getBrowserCommand(): string {
+export function getBrowserCommand(platform: string = process.platform): string {
     let cmd: string;
 
-    switch (getOSType()) {
+    switch (getOSType(platform)) {
         case OSType.windows:
             cmd = 'start';
             break;
@@ -71,35 +71,38 @@ export function getBrowserCommand(): string {
     return cmd;
 }
 
-export function getGithubFileTag(): [string, string, string] {
-    let os: string;
-    let arch: string;
-    let ext: string = 'tar.gz';
-    let cmd: string = 'tar -xvzf';
-    let dest: string = '~/.upsun-cli/addons';
+export function getGithubFileTag(
+    platform: string = process.platform,
+    arch: string = process.arch,
+): [string, string, string] {
+    let _os: string;
+    let _arch: string;
+    let _ext: string = 'tar.gz';
+    let _cmd: string = 'tar -xvzf';
+    let _dest: string = '~/.upsun-cli/addons';
 
-    switch (getOSType()) {
+    switch (getOSType(platform)) {
         case OSType.windows:
-            os = OSType.windows.toLowerCase();
-            cmd = 'powershell Expand-Archive -Path '; //TODO need to test
-            ext = 'zip';
-            dest = '%USERQ%/.upsun-cli/addons';
+            _os = OSType.windows.toLowerCase();
+            _cmd = 'powershell Expand-Archive -Path'; //TODO need to test
+            _ext = 'zip';
+            _dest = '%USER%/.upsun-cli/addons';
             break;
         case OSType.osx:
-            os = 'darwin';
+            _os = 'darwin';
             break;
         case OSType.linux:
         default:
-            os = OSType.linux.toLowerCase();
+            _os = OSType.linux.toLowerCase();
             break;
     }
 
-    switch (getArchitecture()) {
+    switch (getArchitecture(arch)) {
         case Architecture.x64:
-            arch = 'amd64';
+            _arch = 'amd64';
             break;
         case Architecture.arm64:
-            arch = 'arm64';
+            _arch = 'arm64';
             break;
         case Architecture.arm:
         case Architecture.x86:
@@ -107,6 +110,6 @@ export function getGithubFileTag(): [string, string, string] {
             throw new Error('Not supported');
     }
 
-    const item: string = `-${os}-${arch}.${ext}`;
-    return [cmd, item, dest];
+    const _item: string = `-${_os}-${_arch}.${_ext}`;
+    return [_cmd, _item, _dest];
 }

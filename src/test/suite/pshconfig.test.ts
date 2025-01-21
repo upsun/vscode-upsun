@@ -4,8 +4,9 @@ import { ConfigBase, ConfigFactory } from '../../pshconfig';
 
 const testPathPsh = path.resolve(
     __dirname,
-    '../../../src/test/fixtures/fake-project1/',
+    '../../../src/test/fixtures/fake-upsun/',
 );
+const projectId = 'erwlgagf6enrq';
 
 suite('PshConfig Test Suite', () => {
     let config: ConfigBase;
@@ -15,6 +16,6 @@ suite('PshConfig Test Suite', () => {
     });
 
     test('PshConfig.pshProjectId', () => {
-        assert.equal(config.projectId, '6q5ffgcj3ieeo');
+        assert.equal(config.projectId, projectId);
     });
 });
