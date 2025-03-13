@@ -10,7 +10,7 @@
   },
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/upsun/vscode-upsun/blob/main/README.md",
-  "publisher": "upsun-vscode",
+  "publisher": "Upsun",
   "icon": "resources/images/upsun-icon.png",
   "repository": {
     "type": "git",
