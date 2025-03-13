@@ -2,7 +2,7 @@
   "name": "upsun",
   "displayName": "Upsun Integration",
   "description": "Manage your Cloud infrastructure at Upsun from your favorite IDE",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "preview": true,
   "author": {
     "name": "Mickael GAILLARD",
@@ -31,9 +31,6 @@
     "Platform.sh",
     "Psh"
   ],
-  "galleryBanner": {
-    "color": "#181619"
-  },
   "sponsor": {
     "url": "https://platform.sh"
   },

@@ -25,19 +25,3 @@ npm install
 ```
 
 Which should output dist/upsun-cli-x.x.x.vsix that you can locally install
-
-
-## Release Notes
-
-### 0.2.0 - beta
-
-Add views of Environment, Applications & Relationship.
-- Activate / Deactivate environement
-- Redeploy environement
-
-### 0.1.0 - beta
-
-Initial release of PSH-cli.
-- Open web site URL
-- Open Upsun console
-- Open SSH terminal
