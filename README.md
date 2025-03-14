@@ -1,13 +1,13 @@
 # Upsun (CLI) extension
 
-Upsun is a fully-managed Platform as a Service (PaaS), which lets you deploy, scale web and API apps.
-Use Upsun's extension for VS Code to quickly manage your project at Upsun.
+Upsun is the cloud application platform that lets developers focus on building great applications, not infrastructure.
+Upsun is our analyst-recognized, developer-friendly, secure, sustainable, and enterprise-grade Cloud Application Platform..
 
 Visit Upsun's [website](https://upsun.com/) for more information about the company.
 
 ## Features
 
-- Open public URLs of defined routes
+- Open public URLs of your project routes
 - Open Upsun console
 - Open SSH session
 
@@ -15,7 +15,6 @@ Visit Upsun's [website](https://upsun.com/) for more information about the compa
 
 1. To use this extensions you need to [install Upsun's CLI](https://docs.upsun.com/development/cli.html#1-install)
 2. Install Upsun's CLI extension for Visual Studio Code
-3. Configure binary path to Upsun's CLI
 
 ## Building locally
 
@@ -24,4 +23,4 @@ npm install
 ./scripts/package_make.sh
 ```
 
-Which should output dist/upsun-cli-x.x.x.vsix that you can locally install
+which should output dist/upsun-cli-x.x.x.vsix that you can locally install

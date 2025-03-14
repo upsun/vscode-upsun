@@ -1,8 +1,8 @@
 {
   "name": "upsun",
   "displayName": "Upsun Integration",
-  "description": "Manage your Cloud infrastructure at Upsun from your favorite IDE",
-  "version": "0.8.1",
+  "description": "Use Upsun's extension for VS Code to quickly manage your Cloud Application Platform at Upsun",
+  "version": "0.8.2",
   "preview": true,
   "author": {
     "name": "Mickael GAILLARD",
@@ -11,7 +11,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "homepage": "https://github.com/upsun/vscode-upsun/blob/main/README.md",
   "publisher": "Upsun",
-  "icon": "resources/images/upsun-icon.png",
+  "icon": "resources/images/upsun-logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/upsun/vscode-upsun"
