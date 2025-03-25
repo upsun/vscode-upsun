@@ -2,7 +2,7 @@
   "name": "upsun",
   "displayName": "Upsun Integration",
   "description": "Use Upsun's extension for VS Code to quickly manage your Cloud Application Platform at Upsun",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "preview": true,
   "author": {
     "name": "Mickael GAILLARD - Duncan NAVES",
@@ -315,6 +315,28 @@
           }
         ]
       }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": "**/.upsun/config.yaml",
+        "url": "https://raw.githubusercontent.com/platformsh/platformify/refs/heads/main/validator/schema/upsun.json"
+      },
+      {
+        "fileMatch": "**/.platform.app.yaml",
+        "url": "https://raw.githubusercontent.com/platformsh/platformify/refs/heads/main/validator/schema/platformsh.application.json"
+      },
+      {
+        "fileMatch": "**/.platform/applications.yaml",
+        "url": "https://raw.githubusercontent.com/platformsh/platformify/refs/heads/main/validator/schema/platformsh.application.json"
+      },
+      {
+        "fileMatch": "**/.platform/routes.yaml",
+        "url": "https://raw.githubusercontent.com/platformsh/platformify/refs/heads/main/validator/schema/platformsh.routes.json"
+      },
+      {
+        "fileMatch": "**/.platform/services.yaml",
+        "url": "https://raw.githubusercontent.com/platformsh/platformify/refs/heads/main/validator/schema/platformsh.services.json"
+      }
     ]
   },
   "scripts": {
@@ -357,6 +379,7 @@
     "js-yaml": "^4.1.0"
   },
   "extensionDependencies": [
-    "vscode.git"
+    "vscode.git",
+    "redhat.vscode-yaml"
   ]
 }
