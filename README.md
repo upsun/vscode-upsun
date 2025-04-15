@@ -1,7 +1,7 @@
 # Upsun (CLI) extension
 
-Upsun is the cloud application platform that lets developers focus on building great applications, not infrastructure.
-Upsun is our analyst-recognized, developer-friendly, secure, sustainable, and enterprise-grade Cloud Application Platform..
+Upsun is the Cloud Application Platform that lets developers focus on building great applications, not infrastructure.
+Upsun is our analyst-recognized, developer-friendly, secure, sustainable, and enterprise-grade Cloud Application Platform.
 
 Visit Upsun's [website](https://upsun.com/) for more information about the company.
 
