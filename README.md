@@ -42,7 +42,7 @@ Quick access (cmd+p) to:
 
 ## Requirements
 
-- [Upsun's CLI](https://docs.upsun.com/development/cli.html#1-install) (use walkthroughs wizard)
+- [Upsun's CLI](https://docs.upsun.com/administration/cli.html#1-install) (use walkthroughs wizard)
 - Vscode.git (installed with this extension)
 - Redhat.vscode-yaml (installed with this extension)
 
