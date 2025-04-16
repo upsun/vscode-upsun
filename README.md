@@ -50,7 +50,7 @@ Quick access (cmd+p) to:
 
 Here's a quick rapid-fire demo GIF of some of the features of this extension.
 
-![TODO]()
+![TODO](resources/images/preview-light.png)
 
 ## Contribute
 
