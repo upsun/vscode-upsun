@@ -2,7 +2,7 @@
   "name": "upsun",
   "displayName": "Upsun Integration",
   "description": "Use Upsun's extension for VS Code to quickly manage your Cloud Application Platform at Upsun",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "preview": true,
   "author": {
     "name": "Mickael GAILLARD - Duncan NAVES",
