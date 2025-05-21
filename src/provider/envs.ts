@@ -169,7 +169,7 @@ export class PshEnvironmentItem extends vscode.TreeItem {
             `Machine: ${this.item.machine}\n` +
             `Type: ${this.item.type}\n` +
             `Created: ${this.item.created.toLocaleDateString()}\n` +
-            `Update: ${this.item.updated.toLocaleDateString()}`;
+            `Updated: ${this.item.updated.toLocaleDateString()}`;
     }
 }
 
