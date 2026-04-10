@@ -15,6 +15,15 @@ export class ListCommand extends PshSelectorContextCommand {
         return `${CLI_CMD} --format=csv --no-header ${this.context}`;
     }
 
+    toArgArray(): string[] {
+        return [
+            CLI_CMD,
+            '--format=csv',
+            '--no-header',
+            ...this.context.allArgArray(),
+        ];
+    }
+
     convert(raw: string): any {
         const subRaw = raw.replace(/\n$/, ''); // Remove last \n (only)
         const rowRaw = subRaw.split('\n');

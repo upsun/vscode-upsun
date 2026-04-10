@@ -24,6 +24,10 @@ export class LogsCommand extends PshContextCommand {
         return '';
     }
 
+    toArgArray(): string[] {
+        return [];
+    }
+
     async process(param: any): Promise<any> {
         const title = `Upsun - log : ${this.context.environment} > ${this.app}`;
         let term = vscode.window.terminals.find((x) => {

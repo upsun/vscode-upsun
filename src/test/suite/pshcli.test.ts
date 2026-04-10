@@ -8,14 +8,24 @@ class MockCommand extends PshContextCommand {
     }
 
     displayMessage(): string {
-        throw new Error('Method not implemented.');
+        return 'mock';
     }
 
     prepare(): string {
-        return ' > /dev/null ; echo -n success';
+        return '';
     }
 
-    process(param: any): void {}
+    toArgArray(): string[] {
+        return [];
+    }
+
+    isCli(): boolean {
+        return false;
+    }
+
+    process(param: any): any {
+        return 'success';
+    }
 }
 
 suite('PshCli Test Suite', () => {
@@ -37,20 +47,9 @@ suite('PshCli Test Suite', () => {
         cli.dispose();
     });
 
-    test('PshCli.executeStr.ok', async () => {
-        const rawResult = await cli.executeStr(
-            ' > /dev/null ; echo -n success',
-        );
-        assert.strictEqual(rawResult, 'success');
-    });
-
-    // TODO fix me
-    // test('PshCli.executeStr.ko', async () => {
-    //     const rawResult = await cli.executeStr(" > /dev/null ; fail");
-    //     assert.strictEqual(rawResult, '');
-    // });
-
     test('PshCli.executeObj.ok', async () => {
+        // MockCommand.isCli() returns false so no subprocess is spawned;
+        // process() returns 'success' directly.
         const rawResult = await cli.executeObj(new MockCommand());
         assert.strictEqual(rawResult, 'success');
     });

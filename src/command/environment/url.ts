@@ -14,6 +14,10 @@ export class UrlCommand extends PshSelectorContextCommand {
         return `${CLI_CMD} --pipe ${this.context}`;
     }
 
+    toArgArray(): string[] {
+        return [CLI_CMD, '--pipe', ...this.context.allArgArray()];
+    }
+
     convert(raw: string): any {
         const subRaw = raw.replace(/\n$/, ''); // Remove last \n (only)
         return subRaw.split('\n');

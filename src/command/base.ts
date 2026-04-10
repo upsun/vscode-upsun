@@ -35,6 +35,18 @@ export class PshContext {
         }
         return result;
     }
+
+    projectArgArray(): string[] {
+        return this.projectId ? ['-p', this.projectId] : [];
+    }
+
+    environmentArgArray(): string[] {
+        return this.environment ? ['-e', this.environment] : [];
+    }
+
+    allArgArray(): string[] {
+        return [...this.projectArgArray(), ...this.environmentArgArray()];
+    }
 }
 
 /**
@@ -54,6 +66,11 @@ export abstract class PshCommand {
      * Prepare CLi command and parameters.
      */
     abstract prepare(): string;
+
+    /**
+     * Return the CLI command and parameters as an argument array (no shell expansion).
+     */
+    abstract toArgArray(): string[];
 
     /**
      * Execute process of command.

@@ -22,6 +22,14 @@ export class RelationshipsCommand extends PshSelectorContextCommand {
         return `${CLI_CMD} ${this.context.allParameter()} -A ${this.app}`;
     }
 
+    toArgArray(): string[] {
+        const args = [CLI_CMD, ...this.context.allArgArray()];
+        if (this.app) {
+            args.push('-A', this.app);
+        }
+        return args;
+    }
+
     static convertInsert(
         arr: PshRelationships[],
         id: string | undefined,

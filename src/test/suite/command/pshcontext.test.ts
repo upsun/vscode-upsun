@@ -13,6 +13,8 @@ suite('PshContext Test Suite', () => {
         assert.strictEqual(ctx.projectParameter(), expected);
         assert.strictEqual(ctx.allParameter(), expected);
         assert.strictEqual(ctx.toString(), expected);
+        assert.deepStrictEqual(ctx.projectArgArray(), ['-p', prj]);
+        assert.deepStrictEqual(ctx.allArgArray(), ['-p', prj]);
     });
 
     test('PshContext.environment', () => {
@@ -23,6 +25,8 @@ suite('PshContext Test Suite', () => {
         assert.strictEqual(ctx.environmentParameter(), expected);
         assert.strictEqual(ctx.allParameter(), expected);
         assert.strictEqual(ctx.toString(), expected);
+        assert.deepStrictEqual(ctx.environmentArgArray(), ['-e', env]);
+        assert.deepStrictEqual(ctx.allArgArray(), ['-e', env]);
     });
 
     test('PshContext.projectIdAndEnvironment', () => {
@@ -35,5 +39,16 @@ suite('PshContext Test Suite', () => {
         assert.strictEqual(ctx.environmentParameter(), ` -e ${env}`);
         assert.strictEqual(ctx.allParameter(), expected);
         assert.strictEqual(ctx.toString(), expected);
+        assert.deepStrictEqual(ctx.projectArgArray(), ['-p', prj]);
+        assert.deepStrictEqual(ctx.environmentArgArray(), ['-e', env]);
+        assert.deepStrictEqual(ctx.allArgArray(), ['-p', prj, '-e', env]);
+    });
+
+    test('PshContext.emptyContext', () => {
+        const ctx = new PshContext(null, null, null);
+
+        assert.deepStrictEqual(ctx.projectArgArray(), []);
+        assert.deepStrictEqual(ctx.environmentArgArray(), []);
+        assert.deepStrictEqual(ctx.allArgArray(), []);
     });
 });

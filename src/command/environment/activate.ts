@@ -13,6 +13,10 @@ export class ActivateCommand extends PshContextCommand {
         return `${CLI_CMD} -y ${this.context}`;
     }
 
+    toArgArray(): string[] {
+        return [CLI_CMD, '-y', ...this.context.allArgArray()];
+    }
+
     process(param: any): any {
         vscode.window.showInformationMessage(
             `Environment ${this.context.environment} activated.`,

@@ -9,7 +9,7 @@ import { PshContextCommand } from './command/base';
 import { PshStorage } from './pshstore';
 import { KEY_CLI_PATH } from './constants/extension';
 
-const exec = util.promisify(require('child_process').exec);
+const execFile = util.promisify(require('child_process').execFile);
 const PSH_CLI_HOME = 'psh-vsc';
 
 export class PshCli {
@@ -41,7 +41,7 @@ export class PshCli {
                     progress.report({
                         message: command.displayMessage(),
                     });
-                    raw = await this.executeStr(`${command}`, token);
+                    raw = await this.executeArr(command.toArgArray(), token);
                 },
             );
         }
@@ -51,14 +51,17 @@ export class PshCli {
         return result;
     }
 
-    public async executeStr(
-        command: string,
+    public async executeArr(
+        args: string[],
         pshKey: string = '',
     ): Promise<string> {
         let result = 'no command run';
-        const pshBin = vscode.workspace.getConfiguration().get(KEY_CLI_PATH);
+        const pshBin = vscode.workspace
+            .getConfiguration()
+            .get<string>(KEY_CLI_PATH, '');
 
         const options = {
+            shell: false as const,
             env: {
                 ...process.env,
                 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -72,12 +75,10 @@ export class PshCli {
             },
         };
 
-        const fullCmd = `${pshBin} ${command}`;
-        console.debug(`CLI Command : ${fullCmd}`);
-        const { err, stdout, stderr } = await exec(fullCmd, options);
+        console.debug(`CLI Command : ${pshBin} ${args.join(' ')}`);
+        const { stdout, stderr } = await execFile(pshBin, args, options);
 
-        if (err) {
-            console.error('error: ' + err);
+        if (stderr) {
             console.error('stderr:\n' + stderr);
             result = stderr;
         } else {
