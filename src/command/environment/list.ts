@@ -20,7 +20,7 @@ export class ListCommand extends PshSelectorContextCommand {
             '--format=csv',
             '--no-header',
             '--columns=id,machine_name,title,status,type,created,updated',
-            ...this.context.allArgArray(),
+            ...this.context.projectArgArray(),
         ];
     }
 
