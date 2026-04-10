@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
         with:
@@ -41,7 +41,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
         with:
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
         with:
@@ -84,7 +84,7 @@ jobs:
     needs: [lint] # test-unit, test-integration,
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
         with:
@@ -95,7 +95,7 @@ jobs:
         shell: bash
 
       - name: Upload VSIX
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: upsun-extension
           path: dist
@@ -109,7 +109,7 @@ jobs:
     needs: build-vsix
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup
         uses: ./.github/actions/setup
         with:

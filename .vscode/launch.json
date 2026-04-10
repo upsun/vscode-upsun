@@ -15,7 +15,8 @@
 			"args": [
 				"${workspaceFolder}/src/test/fixtures/fake-",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--disable-extensions"
+				// "--disable-extensions",
+				// "--enable-extension=redhat.vscode-yaml"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
@@ -31,7 +32,8 @@
 				//"/home/micky/Platform.sh/project/Internal _ ADV-Tools/adv/FastlyUISun/FastSun",
 				"/home/micky/Platform.sh/project/Internal _ ADV-Tools/tmp/prod-maap-audit",
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--disable-extensions"
+				// "--disable-extensions",
+				// "--enable-extension=redhat.vscode-yaml"
 			],
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"

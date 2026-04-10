@@ -13,6 +13,10 @@ export class DeactivateCommand extends PshContextCommand {
         return `${CLI_CMD} --no-delete-branch ${this.context}`;
     }
 
+    toArgArray(): string[] {
+        return [CLI_CMD, '--no-delete-branch', ...this.context.allArgArray()];
+    }
+
     process(param: any): any {
         vscode.window.showInformationMessage(
             `Environment ${this.context.environment} desactivated.`,

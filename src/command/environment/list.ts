@@ -14,6 +14,16 @@ export class ListCommand extends PshSelectorContextCommand {
         return `${CLI_CMD} --format=csv --no-header --columns=id,machine_name,title,status,type,created,updated ${this.context.projectParameter()}`;
     }
 
+    toArgArray(): string[] {
+        return [
+            CLI_CMD,
+            '--format=csv',
+            '--no-header',
+            '--columns=id,machine_name,title,status,type,created,updated',
+            ...this.context.projectArgArray(),
+        ];
+    }
+
     convert(raw: string): any {
         const subRaw = raw.replace(/\n$/, ''); // Remove last \n (only)
         const rowRaw = subRaw.split('\n');

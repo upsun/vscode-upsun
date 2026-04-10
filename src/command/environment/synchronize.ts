@@ -13,6 +13,10 @@ export class SynchronizeCommand extends PshContextCommand {
         return `${CLI_CMD} data ${this.context}`;
     }
 
+    toArgArray(): string[] {
+        return [CLI_CMD, 'data', ...this.context.allArgArray()];
+    }
+
     process(param: any): any {
         vscode.window.showInformationMessage(
             `Environment ${this.context.environment} synchronized.`,

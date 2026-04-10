@@ -48,7 +48,13 @@ export abstract class ConfigBase {
             fs.readFileSync(path.join(this.folder, LOCAL_PATH), 'utf8'),
         );
 
-        this.projectId = (this.local as any).id.toString();
+        const rawId: string = (this.local as any).id.toString();
+        if (!/^[a-z0-9][a-z0-9-]*$/.test(rawId)) {
+            throw new Error(
+                `Invalid Upsun project id "${rawId}": only lowercase alphanumeric characters and hyphens are allowed.`,
+            );
+        }
+        this.projectId = rawId;
         console.debug(`Config Project ID : ${this.projectId}`);
     }
 }

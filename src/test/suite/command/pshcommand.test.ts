@@ -8,6 +8,9 @@ class TestPshContextCommand extends PshContextCommand {
     prepare(): string {
         throw new Error('Method not implemented.');
     }
+    toArgArray(): string[] {
+        throw new Error('Method not implemented.');
+    }
     process(param: any): void {
         throw new Error('Method not implemented.');
     }
