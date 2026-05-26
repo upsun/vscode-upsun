@@ -36,9 +36,12 @@ export class LogsCommand extends PshContextCommand {
         });
 
         if (!term) {
-            const pshBin = vscode.workspace
-                .getConfiguration()
-                .get(KEY_CLI_PATH);
+            const pshBin = shellEscape(
+                vscode.workspace
+                    .getConfiguration()
+                    .get<string>(KEY_CLI_PATH, '')
+                    .trim(),
+            );
             let cmd = `${pshBin} ${CLI_CMD} --lines 100 --tail ${this.context}`;
 
             if (this.app) {
