@@ -21,6 +21,7 @@ async function main() {
             extensionDevelopmentPath,
             extensionTestsPath,
             launchArgs,
+            extensionTestsEnv: { VSCODE_TEST: '1' },
         });
     } catch (err) {
         console.error('Failed to run tests');
