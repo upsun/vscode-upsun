@@ -80,9 +80,13 @@ async function registerInstallClonsun(context: vscode.ExtensionContext) {
                     const [binUnzip, item, dest] = getGithubFileTag();
 
                     const json = (await response.json()) as any;
-                    const url = json.assets.find((e: any) =>
-                        e.name.includes(item),
-                    ).browser_download_url;
+                    const url = validateGitHubDownloadUrl(
+                        json.assets.find((e: any) => e.name.includes(item))
+                            ?.browser_download_url,
+                    );
+                    if (!url) {
+                        return;
+                    }
 
                     const title = 'Install ClonSun tool';
                     const final = `mkdir -p tmp ${dest} && cd tmp && curl -LJo clonsun${item} ${url} && ${binUnzip} clonsun${item} && mv clonsun ${dest} && cd .. && rm -r tmp`;
@@ -105,9 +109,13 @@ async function registerInstallConvsun(context: vscode.ExtensionContext) {
                     const [binUnzip, item, dest] = getGithubFileTag();
 
                     const test = (await response.json()) as any;
-                    const url = test.assets.find((e: any) =>
-                        e.name.includes(item),
-                    ).browser_download_url;
+                    const url = validateGitHubDownloadUrl(
+                        test.assets.find((e: any) => e.name.includes(item))
+                            ?.browser_download_url,
+                    );
+                    if (!url) {
+                        return;
+                    }
 
                     const title = 'Install ConvSun tool';
                     const final = `mkdir -p tmp ${dest} && cd tmp && curl -LJo convsun${item} ${url} && ${binUnzip} convsun${item} && mv convsun ${dest} && cd .. && rm -r tmp`;
@@ -116,6 +124,32 @@ async function registerInstallConvsun(context: vscode.ExtensionContext) {
             });
         }),
     );
+}
+
+/**
+ * Validates a download URL from the GitHub Releases API.
+ *
+ * Only https://github.com/ URLs are accepted. Rejects anything else
+ * (http, data:, file:, attacker-controlled domains) that a MITM or
+ * compromised GitHub response could inject into the shell command built
+ * by the callers.
+ *
+ * @returns The URL string if valid, or undefined (after showing an error).
+ */
+function validateGitHubDownloadUrl(
+    url: unknown,
+): string | undefined {
+    if (
+        typeof url !== 'string' ||
+        !/^https:\/\/github\.com\//i.test(url)
+    ) {
+        console.error(`Upsun: unexpected download URL from GitHub API: ${url}`);
+        vscode.window.showErrorMessage(
+            'Upsun: unexpected download URL received from GitHub API. Aborting installation.',
+        );
+        return undefined;
+    }
+    return url;
 }
 
 function downloadInstall(title: string, cmd: string) {
