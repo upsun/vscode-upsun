@@ -48,7 +48,10 @@ suite('Platform.shellEscape Test Suite', () => {
     });
 
     test('shellEscape.hyphen_branch', () => {
-        assert.strictEqual(shellEscape('feature-branch-1'), "'feature-branch-1'");
+        assert.strictEqual(
+            shellEscape('feature-branch-1'),
+            "'feature-branch-1'",
+        );
     });
 
     test('shellEscape.slash_hierarchical', () => {
@@ -59,30 +62,21 @@ suite('Platform.shellEscape Test Suite', () => {
         // PoC payload from report #3654942
         assert.strictEqual(
             shellEscape('main$(env>/tmp/upsun_full_env)'),
-            "'main$(env>/tmp/upsun_full_env)'"
+            "'main$(env>/tmp/upsun_full_env)'",
         );
     });
 
     test('shellEscape.injection_ifs', () => {
         // ${IFS} substitution trick (replaces space in branch names)
-        assert.strictEqual(
-            shellEscape('main${IFS}foo'),
-            "'main${IFS}foo'"
-        );
+        assert.strictEqual(shellEscape('main${IFS}foo'), "'main${IFS}foo'");
     });
 
     test('shellEscape.injection_semicolon_pipe', () => {
-        assert.strictEqual(
-            shellEscape('main;curl|sh'),
-            "'main;curl|sh'"
-        );
+        assert.strictEqual(shellEscape('main;curl|sh'), "'main;curl|sh'");
     });
 
     test('shellEscape.injection_backtick', () => {
-        assert.strictEqual(
-            shellEscape('main`id`'),
-            "'main`id`'"
-        );
+        assert.strictEqual(shellEscape('main`id`'), "'main`id`'");
     });
 
     test('shellEscape.single_quote_in_value', () => {

@@ -7,7 +7,10 @@ import * as path from 'path';
 import * as util from 'util';
 import { PshContextCommand } from './command/base';
 import { PshStorage } from './pshstore';
-import { KEY_CLI_PATH, URI_EXTENSION_SETTING_TOKEN } from './constants/extension';
+import {
+    KEY_CLI_PATH,
+    URI_EXTENSION_SETTING_TOKEN,
+} from './constants/extension';
 
 const execFile = util.promisify(require('child_process').execFile);
 const PSH_CLI_HOME = 'psh-vsc';
