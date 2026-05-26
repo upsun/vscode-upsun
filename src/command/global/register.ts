@@ -136,13 +136,8 @@ async function registerInstallConvsun(context: vscode.ExtensionContext) {
  *
  * @returns The URL string if valid, or undefined (after showing an error).
  */
-function validateGitHubDownloadUrl(
-    url: unknown,
-): string | undefined {
-    if (
-        typeof url !== 'string' ||
-        !/^https:\/\/github\.com\//i.test(url)
-    ) {
+function validateGitHubDownloadUrl(url: unknown): string | undefined {
+    if (typeof url !== 'string' || !/^https:\/\/github\.com\//i.test(url)) {
         console.error(`Upsun: unexpected download URL from GitHub API: ${url}`);
         vscode.window.showErrorMessage(
             'Upsun: unexpected download URL received from GitHub API. Aborting installation.',
