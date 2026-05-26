@@ -2,7 +2,7 @@
 
 import * as path from 'path';
 import * as fs from 'fs';
-import { load } from 'js-yaml';
+import { load, FAILSAFE_SCHEMA } from 'js-yaml';
 
 const PSH_FOLDER = 'platform';
 const UPS_FOLDER = 'upsun';
@@ -46,6 +46,7 @@ export abstract class ConfigBase {
 
         this.local = load(
             fs.readFileSync(path.join(this.folder, LOCAL_PATH), 'utf8'),
+            { schema: FAILSAFE_SCHEMA },
         );
 
         const rawId: string = (this.local as any).id.toString();
