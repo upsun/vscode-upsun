@@ -71,6 +71,23 @@ export function getBrowserCommand(): string {
     return cmd;
 }
 
+/**
+ * Escapes a string for safe use as a single shell argument.
+ *
+ * Wraps the value in POSIX single quotes and escapes any embedded
+ * single-quote characters, neutralising all shell metacharacters
+ * including $, (, ), ;, &, |, ` and ${IFS} substitution tricks.
+ *
+ * Safe for any POSIX-compatible shell (bash, sh, zsh, …).
+ * Must NOT be used for Windows cmd.exe or PowerShell.
+ *
+ * @param arg The raw string to escape.
+ * @returns The shell-safe, single-quoted argument.
+ */
+export function shellEscape(arg: string): string {
+    return `'${arg.replace(/'/g, "'\\''")}'`;
+}
+
 export function getGithubFileTag(): [string, string, string] {
     let os: string;
     let arch: string;
