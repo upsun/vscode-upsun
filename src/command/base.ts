@@ -1,6 +1,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { shellEscape } from '../utils/platform';
 
 /**
  * Extend/Aggregate VSCode Context with PSH specific context
@@ -31,7 +32,7 @@ export class PshContext {
     environmentParameter(): string {
         let result = '';
         if (this.environment) {
-            result += ` -e ${this.environment}`;
+            result += ` -e ${shellEscape(this.environment)}`;
         }
         return result;
     }

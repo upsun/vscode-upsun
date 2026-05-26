@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { PshContext, PshContextCommand } from '../base';
 import { KEY_CLI_PATH } from '../../constants/extension';
 import { PshStorage } from '../../pshstore';
+import { shellEscape } from '../../utils/platform';
 
 const LOGS_LINES = 100;
 
@@ -35,13 +36,16 @@ export class LogsCommand extends PshContextCommand {
         });
 
         if (!term) {
-            const pshBin = vscode.workspace
-                .getConfiguration()
-                .get(KEY_CLI_PATH);
+            const pshBin = shellEscape(
+                vscode.workspace
+                    .getConfiguration()
+                    .get<string>(KEY_CLI_PATH, '')
+                    .trim(),
+            );
             let cmd = `${pshBin} ${CLI_CMD} --lines 100 --tail ${this.context}`;
 
             if (this.app) {
-                cmd += ` -A ${this.app}`;
+                cmd += ` -A ${shellEscape(this.app)}`;
             }
 
             const token =

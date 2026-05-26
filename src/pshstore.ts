@@ -41,7 +41,6 @@ export class PshStorage {
 
         if (token !== '') {
             this.secretStorage.store(SECRET_TOKEN, token);
-            vscode.workspace.getConfiguration().update(SECRET_TOKEN, true);
         }
     }
 

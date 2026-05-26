@@ -1,27 +1,27 @@
 import { assert } from 'chai';
 import { PshCommand, PshContext } from '../../../../command/base';
-import { SshCommand } from '../../../../command/environment/ssh';
+import { LogsCommand } from '../../../../command/environment/logs';
 import { shellEscape } from '../../../../utils/platform';
 
-suite('Env/SSH Test Suite', () => {
+suite('Env/Logs Test Suite', () => {
     let cmd: PshCommand;
 
     setup(() => {
         const ctx = new PshContext(null, null, null);
-        cmd = new SshCommand(ctx);
+        cmd = new LogsCommand(ctx);
     });
 
-    test('Env/SSH.prepare', () => {
+    test('Env/Logs.prepare', () => {
         assert.isDefined(cmd);
         assert.strictEqual(cmd.prepare(), '');
     });
 
-    test('Env/SSH.isCli', () => {
+    test('Env/Logs.isCli', () => {
         assert.isDefined(cmd);
         assert.isFalse(cmd.isCli());
     });
 
-    test('Env/SSH.process', async () => {
+    test('Env/Logs.process', async () => {
         try {
             await cmd.process('');
 
@@ -31,7 +31,7 @@ suite('Env/SSH Test Suite', () => {
         }
     });
 
-    test('Env/SSH.environment_injection_escaped', () => {
+    test('Env/Logs.environment_injection_escaped', () => {
         // Verify that a branch name containing shell metacharacters is
         // shell-escaped before reaching the terminal, preventing injection.
         const maliciousBranch =
@@ -45,13 +45,13 @@ suite('Env/SSH Test Suite', () => {
         assert.notInclude(paramStr, ` -e ${maliciousBranch}`);
     });
 
-    test('Env/SSH.environment_normal_branch_unchanged', () => {
+    test('Env/Logs.environment_normal_branch_unchanged', () => {
         // Escaping must not mangle valid branch names
         const ctx = new PshContext('my-project', 'feature-branch-1', null);
         assert.include(ctx.toString(), "-e 'feature-branch-1'");
     });
 
-    test('Env/SSH.app_injection_escaped', () => {
+    test('Env/Logs.app_injection_escaped', () => {
         // Verify shellEscape applied to app names with metacharacters
         const maliciousApp = 'app$(id)';
         assert.strictEqual(shellEscape(maliciousApp), `'app$(id)'`);

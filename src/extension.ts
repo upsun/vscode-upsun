@@ -12,8 +12,10 @@ import { registerViewApplication } from './provider/apps';
 import { registerViewRelationship } from './provider/rels';
 
 export async function activate(context: vscode.ExtensionContext) {
-    //HACK for Unit Test.
-    (global as any).testExtensionContext = context;
+    //HACK for Unit Test – only expose the context when tests are running.
+    if (process.env['VSCODE_TEST']) {
+        (global as any).testExtensionContext = context;
+    }
 
     // Get Global commands.
     registerGlobal(context);

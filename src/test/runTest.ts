@@ -21,6 +21,8 @@ async function main() {
             extensionDevelopmentPath,
             extensionTestsPath,
             launchArgs,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            extensionTestsEnv: { VSCODE_TEST: '1' },
         });
     } catch (err) {
         console.error('Failed to run tests');

@@ -7,7 +7,10 @@ import * as path from 'path';
 import * as util from 'util';
 import { PshContextCommand } from './command/base';
 import { PshStorage } from './pshstore';
-import { KEY_CLI_PATH } from './constants/extension';
+import {
+    KEY_CLI_PATH,
+    URI_EXTENSION_SETTING_TOKEN,
+} from './constants/extension';
 
 const execFile = util.promisify(require('child_process').execFile);
 const PSH_CLI_HOME = 'psh-vsc';
@@ -30,20 +33,45 @@ export class PshCli {
         const token =
             (await new PshStorage(command.context.vscontext!).getToken()) || '';
 
-        if (command.isCli()) {
-            await vscode.window.withProgress(
-                {
-                    cancellable: false,
-                    location: vscode.ProgressLocation.Notification,
-                    title: 'Upsun',
-                } as vscode.ProgressOptions,
-                async (progress) => {
-                    progress.report({
-                        message: command.displayMessage(),
-                    });
-                    raw = await this.executeArr(command.toArgArray(), token);
-                },
+        if (!token && command.isCli()) {
+            const action = await vscode.window.showErrorMessage(
+                'Upsun: no API token configured. The extension cannot reach the Upsun CLI.',
+                'Set Token',
             );
+            if (action === 'Set Token') {
+                await vscode.commands.executeCommand(
+                    URI_EXTENSION_SETTING_TOKEN,
+                );
+            }
+            return null;
+        }
+
+        if (command.isCli()) {
+            try {
+                await vscode.window.withProgress(
+                    {
+                        cancellable: false,
+                        location: vscode.ProgressLocation.Notification,
+                        title: 'Upsun',
+                    } as vscode.ProgressOptions,
+                    async (progress) => {
+                        progress.report({
+                            message: command.displayMessage(),
+                        });
+                        raw = await this.executeArr(
+                            command.toArgArray(),
+                            token,
+                        );
+                    },
+                );
+            } catch (e: any) {
+                const msg = e?.stderr || e?.message || String(e);
+                console.error(`Upsun CLI error: ${msg}`);
+                vscode.window.showErrorMessage(
+                    `Upsun CLI error: ${msg.split('\n')[0]}`,
+                );
+                return null;
+            }
         }
         const param = command.convert(raw);
         const result = await command.process(param);
@@ -58,7 +86,8 @@ export class PshCli {
         let result = 'no command run';
         const pshBin = vscode.workspace
             .getConfiguration()
-            .get<string>(KEY_CLI_PATH, '');
+            .get<string>(KEY_CLI_PATH, '')
+            .trim();
 
         const options = {
             shell: false as const,

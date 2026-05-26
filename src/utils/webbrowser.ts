@@ -1,27 +1,31 @@
 'use strict';
 
-import { getBrowserCommand } from './platform';
-const { exec } = require('child_process');
+import { execFile } from 'child_process';
+import { getBrowserArgs } from './platform';
 
 export abstract class WebBrowser {
+    /**
+     * Open a URL in the default browser.
+     *
+     * Only http/https URLs are accepted. Non-HTTP URLs are rejected to
+     * prevent protocol injection (file://, javascript:, data:, …).
+     * Uses execFile (shell:false) to prevent command injection via the URL.
+     * Platform-specific binary selection is handled by getBrowserArgs().
+     */
     static open(url: string) {
-        let cmd: string = getBrowserCommand();
+        if (!/^https?:\/\//i.test(url)) {
+            console.error(`WebBrowser: refused to open non-HTTP URL: ${url}`);
+            return;
+        }
 
-        const icmd = `${cmd} ${url}`;
-        exec(
-            icmd,
-            (
-                error: Error,
-                stdout: string | Buffer,
-                stderr: string | Buffer,
-            ) => {
-                if (stdout) {
-                    console.debug(stdout);
-                }
-                if (error) {
-                    console.error(stderr);
-                }
-            },
-        );
+        const [bin, args] = getBrowserArgs(url);
+        execFile(bin, args, (error, stdout, stderr) => {
+            if (stdout) {
+                console.debug(stdout);
+            }
+            if (error) {
+                console.error(stderr);
+            }
+        });
     }
 }
