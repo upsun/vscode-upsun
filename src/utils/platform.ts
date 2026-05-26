@@ -53,22 +53,32 @@ export function getArchitecture(archIdx: string = process.arch): Architecture {
 }
 
 export function getBrowserCommand(): string {
-    let cmd: string;
-
     switch (getOSType()) {
         case OSType.windows:
-            cmd = 'start';
-            break;
+            return 'start';
         case OSType.osx:
-            cmd = 'open';
-            break;
+            return 'open';
         case OSType.linux:
         default:
-            cmd = 'xdg-open';
-            break;
+            return 'xdg-open';
     }
+}
 
-    return cmd;
+/**
+ * Returns [bin, args] ready for execFile() to open `url` in the
+ * system default browser.  Encapsulates all platform differences so
+ * callers never need to import OSType.
+ *
+ * On Windows, getBrowserCommand() returns 'start' which is a cmd.exe
+ * built-in (not a standalone binary), so we route through cmd.exe /c.
+ * On all other platforms the command returned by getBrowserCommand() is
+ * a real executable that accepts the URL as its sole argument.
+ */
+export function getBrowserArgs(url: string): [string, string[]] {
+    if (getOSType() === OSType.windows) {
+        return ['cmd.exe', ['/c', getBrowserCommand(), '', url]];
+    }
+    return [getBrowserCommand(), [url]];
 }
 
 /**
